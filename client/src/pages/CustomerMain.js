@@ -30,9 +30,6 @@ export default function CustomerMain(props) {
     const handleModalShow = () => setModalVisible(true);
     const handleModalClose = () => setModalVisible(false);
 
-
-
-    
     const [snacks, setSnacks] = useState([]);
     const[order, setOrder] = useState([]);
     
@@ -44,7 +41,7 @@ export default function CustomerMain(props) {
     }
     let history = useHistory();
     const onSubmit = () => {
-        if (!props.customer){
+        if (!props.location.state.customer){
 
             message.error("You need to login to place order!")
             history.goBack()
@@ -60,8 +57,8 @@ export default function CustomerMain(props) {
             }
         }
         axios.post('/order/create',{
-            customer: props.customer,
-            vendor:"606af49170663322889fb26a", //will be changed in the future
+            customer: props.location.state.customer.id,
+            vendor:props.location.state.vendor.id, //will be changed in the future
             snacks: submitOrder
         }).then(response =>{
             if(response.data.success){
@@ -73,12 +70,12 @@ export default function CustomerMain(props) {
         })}
     }
 
-    console.log(props.customer)
+    console.log(props.location.state.vendor)
+
     useEffect(() =>{
         axios.get('/snack').then(response => {
             setSnacks(response.data.snacks)
         })
-
     })
     
     return (

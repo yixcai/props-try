@@ -16,13 +16,12 @@ export default function LeafletMap(props) {
     })
     
 
-    console.log(props)
-    let history = useHistory()
-    function Log(){
-        history.push("/menue",{
-            customer: props.vendors
-        })
-    }
+    console.log(props.his)
+
+    const Log = () => {
+    props.his.push('/menue',{
+        customer : props.customer,
+    });}
 
         return (
         <>
