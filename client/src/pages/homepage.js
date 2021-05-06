@@ -10,26 +10,14 @@ export default function CustomerMain(props) {
     const [drawerVisible, setDrawerVisible] = useState(false); 
     const handleDrawerClose = () => setDrawerVisible(false); 
 
-    
-    
     return (
         <>
             <PageHeader title = {"Welcome, Please select the vendor"}>
             </PageHeader>
-            <Drawer visible ={drawerVisible}
-                closable = {true}
-                onClose = {handleDrawerClose}
-                width={"35%"}>
-                <Divider/>
-
-            </Drawer>
-
             <LeafletMap center = {props.location.state.position}
                         vendors = {props.location.state.vendors}
                         customer = {props.location.state.customer}
-                        state = {props.location.state}
-                        his = {props.history}
                         />
         </>
     )
-}
+}   

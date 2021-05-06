@@ -14,13 +14,12 @@ export default function LeafletMap(props) {
         iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Map_marker.svg',
         iconSize: [30,30]
     })
-    
 
-    console.log(props.his)
-
-    const Log = () => {
-    props.his.push('/menue',{
+    let history = useHistory()
+    const Log = (vendor) => {
+        history.push('/menue',{
         customer : props.customer,
+        vendor: vendor
     });}
         return (
         <>
@@ -41,7 +40,7 @@ export default function LeafletMap(props) {
                                 vendor.location[0] - props.center[0],
                                 vendor.location[1] - props.center[1]
                                  ))*111).toFixed(2)+"km"}
-                            <Button variant="primary" onClick={Log}>
+                            <Button variant="primary" onClick={() =>Log(vendor)}>
                                 Order from this Vendor
                             </Button>
                             </Popup>

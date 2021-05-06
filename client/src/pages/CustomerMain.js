@@ -61,7 +61,7 @@ export default function CustomerMain(props) {
         }
         axios.post('/order/create',{
             customer: props.location.state.customer.id,
-            vendor:"60925945f01151d8530fee1d", //will be changed in the future
+            vendor:props.location.state.vendor.id, //will be changed in the future
             snacks: submitOrder
         }).then(response =>{
             if(response.data.success){
@@ -72,7 +72,7 @@ export default function CustomerMain(props) {
             }
         })}
     }
-    console.log(props.location.state.customer.id)
+    console.log(props.location.state.vendor)
     useEffect(() => {
         if(props.location.state.customer){
             axios.get('/order?customer=' + props.location.state.customer.id).then(response => {
