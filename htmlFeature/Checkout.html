@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="D:\c盘数据\Documents\UniMelb\Yr3 S1\INFO30005 Web information technologies\Part2\web.css">
+        
+        <title>Checkout-Le Sillage</title>
+    </head>
+
+    <body>
+        <header>
+            <table class="header-container">
+                <td>
+                    <h1>
+                        <img src="coffee-truck.png" alt="coffee truck" class="truckicon">
+                        Le Sillage
+                    </h1>
+                </td>
+                <td>
+                    <div class="topbar" id="topbarmenu">
+                        <nav id="navigations">
+                            <ul>
+                                <li><a href="">My Cart</a></li>
+                                <li><a href="">My Account</a></li>
+                                <li><a href="">Home</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </td>
+            </table>
+        </header>
+        <main>
+            <div class="info-container">
+                <table class = "cartinfo" id="checkinfo">
+                    <caption><h2>Pick-up Detail</h2></caption>
+                    <thead>
+                        <tr>
+                            <th><h4>Location to Pick up:</h4></th>
+                            <td colspan="4"> 187 Elizabeth St, Melbourne VIC 3000</td>
+                        </tr>
+                        <tr>
+                            <th><h4>Van name:</h4></th>
+                            <td colspan="4">RoseDoggie</td>
+                        </tr>
+                        <tr>
+                            <th><h4>Customer name:</h4></th>
+                            <td colspan="4">
+                                <input type="text" id="cusname" name="Customer name" placeholder="Knowknow">
+                                <button name="apply">Apply</button>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Products</th>
+                            <th>Unit Price</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td><h3> Latte </h3></td>
+                            <td>$5.95</td>
+                            <td>
+                                2
+                            </td>
+                            <td>$11.9</td>
+                            <td><strong>Delete</strong></td>
+                        </tr>
+                        <tr>
+                            <td><h3> Cappucino </h3></td>
+                            <td>$5.95</td>
+                            <td>
+                                1
+                            </td>
+                            <td>$5.95</td>
+                            <td><strong>Delete</strong></td>
+                        </tr>
+                        <tr>
+                            <td><h2>Total:</h2></td>
+                            <td colspan="3"></td>
+                            <td><h2>$17.85</h2></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"></td>
+                            <td>
+                                <button type="submit" class="btn" id="addcart">Confirm</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+            
+    </body>
+</html>

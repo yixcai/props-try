@@ -1,0 +1,40 @@
+{
+    "name": "lesillage",
+    "version": "1.0.0",
+    "description": "project for web",
+    "main": "server.js",
+    "scripts": {
+        "client": "npm start --prefix client",
+        "dev": "concurrently \"npm rum server\" \"npm run client\"",
+        "start": "node server.js",
+        "server": "nodemon server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "project",
+        "and",
+        "cafe"
+    ],
+    "author": "ls",
+    "license": "MIT",
+    "dependencies": {
+        "antd": "^4.15.4",
+        "axios": "^0.21.1",
+        "axis": "^1.0.0",
+        "bcrypt": "^5.0.1",
+        "bcryptjs": "^2.4.3",
+        "bootstrap": "^4.6.0",
+        "concurrently": "^6.0.2",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "mongoose": "^5.12.7",
+        "prop-types": "^15.7.2",
+        "react": "^17.0.2",
+        "react-axios": "^2.0.5",
+        "react-bootstrap": "^1.5.2",
+        "socket.io": "^4.0.1"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.7"
+    }
+}

@@ -1,0 +1,302 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="D:\c盘数据\Documents\UniMelb\Yr3 S1\INFO30005 Web information technologies\Part2\web.css">
+        
+        <title>Menu-Le Sillage</title>
+    </head>
+
+    <body>
+        <header>
+            <table class="header-container">
+                <td>
+                    <h1>
+                        <img src="coffee-truck.png" alt="coffee truck" class="truckicon">
+                        Le Sillage
+                    </h1>
+                </td>
+                <td>
+                    <div class="topbar" id="topbarmenu">
+                        <nav id="navigations">
+                            <ul>
+                                <li><a href="">My Cart</a></li>
+                                <li><a href="">My Account</a></li>
+                                <li><a href="">Home</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </td>
+            </table>
+        </header>
+        <main>
+            <div class="menu-container">
+                <div class="drink">
+                <h2>Drink</h2>
+                </div>
+
+                <div id="latte">
+                    <h3>Latte <br> $5.95</h3>
+                    <p>Latte is a coffee-based drink made primarily from espresso and steamed milk. It consists of one-third espresso, two-thirds heated milk and about 1cm of foam.</p>                     
+                    <p class="detail"><a href="">Learn more details...</a></p>
+                    <div class="quantity">
+                        <button onclick="decrement()">-</button>
+                        <input id="numinput1" type=number min=1 max=100>
+                        <button onclick="increment1()">+</button>
+                    </div>
+                    <script>
+                        function increment1() {
+                        document.getElementById('numinput1').stepUp();
+                        }
+                        function decrement1() {
+                        document.getElementById('numinput1').stepDown();
+                        }
+                    </script>
+                    <div>
+                        <input type="submit" value="Add to Cart" id="addcart" >
+                    </div>
+                </div>
+                <div id="limg" class="container">
+                    <img src="latte.jpg" alt="Latte" />
+                </div>
+
+                <div id="flatwhite">
+                    <h3>Flat White<br> $5.95</h3>
+                    <p>Flat White is a an espresso-based drink that contains steamed milk.<br>It is a no-nonsense option for those looking for a dairy beverage with a strong taste of coffee and is made with a small amount of steamed milk and a thin layer of microfoam.</p>                     
+                    <p class="detail"><a href="">Learn more details...</a></p>
+                    <div class="quantity">
+                        <button onclick="decrement2()">-</button>
+                        <input id="numinput2" type=number min=1 max=100>
+                        <button onclick="increment2()">+</button>
+                    </div>
+                    <script>
+                        function increment2() {
+                        document.getElementById('numinput2').stepUp();
+                        }
+                        function decrement2() {
+                        document.getElementById('numinput2').stepDown();
+                        }
+                    </script>
+                    <div>
+                    <input type="submit" value="Add to Cart" id="addcart">
+                    </div>
+                </div>
+                <div id="fwimg" class="container">
+                    <img src="flat white.jpg" alt="Flat White" />
+                </div>
+
+                <div id="cappucino">
+                    <h3>Cappucino<br> $5.95</h3>
+                    <p>A cappuccino is an Italian coffee drink that is traditionally prepared with equal parts double espresso, steamed milk, and steamed milk foam on top.</p>                     
+                    <p class="detail"><a href="">Learn more details...</a></p>
+                    <div class="quantity">
+                        <button onclick="decrement3()">-</button>
+                        <input id="numinput3" type=number min=1 max=100>
+                        <button onclick="increment3()">+</button>
+                    </div>
+                    <script>
+                        function increment3() {
+                        document.getElementById('numinput3').stepUp();
+                        }
+                        function decrement3() {
+                        document.getElementById('numinput3').stepDown();
+                        }
+                    </script>
+                    <div>
+                        <input type="submit" value="Add to Cart" id="addcart">
+                    </div>
+                </div>
+                <div id="capimg" class="container">
+                    <img src="cappuccino.jpg" alt="Cappucino" />
+                </div>
+
+                <div id="longblack">
+                    <h3>Long Black<br> $4.95</h3>
+                    <p>A long black is similar to an Americano, but with a stronger aroma and taste. A long black is made by pouring a double-shot of espresso or ristretto over hot water.</p>                     
+                    <p class="detail"><a href="">Learn more details...</a></p>
+                    <div class="quantity">
+                        <button onclick="decrement4()">-</button>
+                        <input id="numinput4" type=number min=1 max=100>
+                        <button onclick="increment4()">+</button>
+                    </div>
+                    <script>
+                        function increment4() {
+                        document.getElementById('numinput4').stepUp();
+                        }
+                        function decrement4() {
+                        document.getElementById('numinput4').stepDown();
+                        }
+                    </script>
+                    <div>
+                        <input type="submit" value="Add to Cart" id="addcart">
+                    </div>
+                </div>
+                <div id="lbimg" class="container">
+                    <img src="long black.jpg" alt="Long Black" />
+                </div>
+
+                        
+                <div class="food">
+                    <h2>Food</h2>
+                </div>
+                
+                <div id="plainbiscuit">
+                    <h3>Plain Biscuit <br> $3.95</h3>
+                    <p>Plan Biscuit is a simple biscuit without any decoration.</p>                    
+                    <p class="more"><a href="">Learn more details...</a></p>
+                    <div class="quantity">
+                        <button onclick="decrement5()">-</button>
+                        <input id="numinput5" type=number min=1 max=100>
+                        <button onclick="increment5()">+</button>
+                    </div>
+                    <script>
+                        function increment5() {
+                        document.getElementById('numinput5').stepUp();
+                        }
+                        function decrement5() {
+                        document.getElementById('numinput5').stepDown();
+                        }
+                    </script>
+                    <div>
+                        <input type="submit" value="Add to Cart" id="addcart">
+                    </div>
+                </div>
+                <div id="pbimg" class="container">
+                    <img src="plain biscuit.jpg" alt="Plain Biscuit" />
+                </div>  
+                
+                <div id="fancybiscuit">
+                    <h3>Fancy Biscuit <br> $6.95</h3>
+                    <p>Fancy Biscuit is a delicious biscuit in letter-shaped.</p>                    
+                    <p class="more"><a href="">Learn more details...</a></p>
+                    <div class="quantity">
+                        <button onclick="decrement6()">-</button>
+                        <input id="numinput6" type=number min=1 max=100>
+                        <button onclick="increment6()">+</button>
+                    </div>
+                    <script>
+                        function increment6() {
+                        document.getElementById('numinput6').stepUp();
+                        }
+                        function decrement6() {
+                        document.getElementById('numinput6').stepDown();
+                        }
+                    </script>
+                    <div>
+                        <input type="submit" value="Add to Cart" id="addcart">
+                    </div>
+                </div>
+                <div id="fbimg" class="container">
+                    <img src="fancy biscuit.jpg" alt="Fancy Biscuit" />
+                </div>  
+
+                <div id="smallcake">
+                    <h3>Small Cake <br> $5.95</h3>
+                    <p>Small cake is a delicious cupcake with cream on top.</p>                    
+                    <p class="more"><a href="">Learn more details...</a></p>
+                    <div class="quantity">
+                        <button onclick="decrement7()">-</button>
+                        <input id="numinput7" type=number min=1 max=100>
+                        <button onclick="increment7()">+</button>
+                    </div>
+                    <script>
+                        function increment7() {
+                        document.getElementById('numinput7').stepUp();
+                        }
+                        function decrement7() {
+                        document.getElementById('numinput7').stepDown();
+                        }
+                    </script>
+                    <div>
+                        <input type="submit" value="Add to Cart" id="addcart">
+                    </div>
+                </div>
+                <div id="scimg" class="container">
+                    <img src="small cake.jpg" alt="Small Cake" />
+                </div>  
+
+                <div id="bigcake">
+                    <h3>Big Cake <br> $9.95</h3>
+                    <p>Big cake is a delicious cake.</p>                    
+                    <p class="more"><a href="">Learn more details...</a></p>
+                    <div class="quantity">
+                        <button onclick="decrement8()">-</button>
+                        <input id="numinput8" type=number min=1 max=100>
+                        <button onclick="increment8()">+</button>
+                    </div>
+                    <script>
+                        function increment8() {
+                        document.getElementById('numinput8').stepUp();
+                        }
+                        function decrement8() {
+                        document.getElementById('numinput8').stepDown();
+                        }
+                    </script>
+                    <div>
+                        <input type="submit" value="Add to Cart" id="addcart">
+                    </div>
+                </div>
+                <div id="bcimg" class="container">
+                    <img src="big cake.jpg" alt="Big Cake" />
+                </div>  
+            </div>
+        </main>
+        <button class="open-button" onclick="openForm()">Shopping Cart</button>
+        <div class="cart-popup" id="myCart">
+            <form action="/action_page.php" class="cart-container">
+                <h1>Shopping Cart</h1> 
+                <div class="">
+            </form>
+            <table class = "cartinfo">
+                <thead>                
+                    <tr>
+                        <th>Products</th>
+                        <th>Unit Price</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><h3> Latte </h3></td>
+                        <td>$5.95</td>
+                        <td>
+                            <input type="number" min="1" step="1" value="2">
+                        </td>
+                        <td>$11.9</td>
+                        <td><strong>Delete</strong></td>
+                    </tr>
+                    <tr>
+                        <td><h3> Cappucino </h3></td>
+                        <td>$5.95</td>
+                        <td>
+                            <input type="number" min="1" step="1" value="1">
+                        </td>
+                        <td>$5.95</td>
+                        <td><strong>Delete</strong></td>
+                    </tr>
+                    <tr>
+                        <td><h2>Total:</h2></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><h2>$17.85</h2></td>
+                    </tr>
+                </tbody>    
+            </table>
+            <button type="submit" class="btn" onclick="location.href='Checkout.html'">Finish Order</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </div>
+
+        <script>
+        function openForm() {
+        document.getElementById("myCart").style.display = "block";
+        }
+
+        function closeForm() {
+        document.getElementById("myCart").style.display = "none";
+        }
+        </script>
+    </body>
+</html>

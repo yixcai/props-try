@@ -1,0 +1,67 @@
+
+/*Fonts*/
+body{
+    font-family: 华文宋体, serif;
+    font-size: 100%;
+    line-height: 100%;
+    color: #6e4020;
+    font-weight: bold;
+    background:url(bg.jpg)  no-repeat center center;
+    background-size:cover;
+    background-attachment:fixed;
+    background-color:#CCCCCC;
+}
+h1{
+    font:bold 2em 华文宋体, Serif;
+    color: #6e4020;
+    text-align: left;
+    margin-left: 5px;
+}  
+h2{
+    font:bold 1.5em 华文宋体, Serif;
+    text-transform: capitalize;
+    color: #593e34;
+    margin-left:10px;
+    margin-top:10px;
+}
+h3{
+    font: bold 1.3em 华文宋体, Serif;
+    color: #6e4020;
+}
+h4{
+    font: bold 1em 华文宋体, Serif;
+    color: white;
+}
+p{
+    font: 1em 华文宋体，Serif;
+    color: black;
+}
+#nav{
+    background-color: #593e34;
+    width: 100%;
+    height:80px;
+}
+.btn{
+    margin-left:10px;
+}
+#coffee{
+    background-color: #fbf4eb;
+    color:white;
+    width: 100%;
+    margin: 10px 0 10px 0;
+}
+#coffeemenu{
+    background-color: #fbf4eb;
+}
+#food{
+    background-color: #f5e3ce;
+    color:white;
+    width: 100%;
+    margin: 10px 0 10px 0;
+}
+#foodmenu{
+    background-color: #f5e3ce;
+}
+#order{
+    background-color: #fbf4eb;
+}
