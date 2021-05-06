@@ -1,6 +1,6 @@
 import {Component, useState, useEffect} from 'react';
 import {Button, Navbar, Nav, Container, Modal} from 'react-bootstrap';
-import {Divider, Drawer, Row, Col, Card, InputNumber,Avatar} from 'antd';
+import {Divider, Drawer, Row, Col, Card, InputNumber,Avatar,PageHeader} from 'antd';
 import { EditOutlined, EllipsisOutlined} from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import '../pages/main.css';
@@ -31,7 +31,11 @@ export default function CustomerMain(props) {
     const handleModalClose = () => setModalVisible(false);
 
     const [snacks, setSnacks] = useState([]);
+    const[orders, setOrders] = useState([]);
     const[order, setOrder] = useState([]);
+
+    const [title, setTitle] = useState('');
+    const [options, setOptions] = useState([]);
     
 
     const onChange = (index, event) => {
@@ -42,7 +46,6 @@ export default function CustomerMain(props) {
     let history = useHistory();
     const onSubmit = () => {
         if (!props.location.state.customer){
-
             message.error("You need to login to place order!")
             history.goBack()
 
@@ -58,7 +61,7 @@ export default function CustomerMain(props) {
         }
         axios.post('/order/create',{
             customer: props.location.state.customer.id,
-            vendor:props.location.state.vendor.id, //will be changed in the future
+            vendor:"60925945f01151d8530fee1d", //will be changed in the future
             snacks: submitOrder
         }).then(response =>{
             if(response.data.success){
@@ -69,19 +72,26 @@ export default function CustomerMain(props) {
             }
         })}
     }
-
-    console.log(props.location.state.vendor)
-
-    useEffect(() =>{
+    console.log(props.location.state.customer.id)
+    useEffect(() => {
+        if(props.location.state.customer){
+            axios.get('/order?customer=' + props.location.state.customer.id).then(response => {
+                setOrders(response.data.allOrders)
+            })
+            setOptions([<Button variant = "outline-dark" key = "1"
+                onClick = {handleDrawerShow}>See Orders</Button>])
+        }
         axios.get('/snack').then(response => {
             setSnacks(response.data.snacks)
         })
-    })
+        
+    },[props.location.state.customer]); 
     
+    console.log(orders)
     return (
         <>
             <Layout>
-                <Navbar id="nav">
+                <Navbar id="nav" >
                     <img alt="" src="/coffee-truck.png" width="70" height="50" className="d-inline-block align-top"/>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
@@ -118,10 +128,8 @@ export default function CustomerMain(props) {
                                 </Button>
                             </Modal.Footer>
                         </Modal>
-
-                        <Button variant = "outline-light" class="btn" key = "1"
-                            onClick = {handleDrawerShow}> See Orders
-                        </Button>
+                        <Button variant = "dark" key = "1"
+                onClick = {handleDrawerShow}>See Orders</Button>
                     </Nav>
                 </Navbar>
 
@@ -131,34 +139,20 @@ export default function CustomerMain(props) {
                     width={"35%"}>
                     <h2>All Orders</h2>
                     <Divider/>
-                    <Card id="order"
-                        style={{ width: '100%' }}
-                        actions={[
-                        <EditOutlined key="edit" />,
-                        <EllipsisOutlined key="ellipsis" />,
-                        ]}
-                    >
-                        <Meta
-                        avatar={<Avatar src="https://www.flaticon.com/svg/vstatic/svg/848/848043.svg?token=exp=1619981902~hmac=bc98b49598df719fa58d79c1c0eb6f6e" />}
-                        title="Order Number"
-                        description="Order Stage"
-                        />
-                    </Card>
-                    <Divider style={{borderWidth:1, borderColor: 'white' }} plain>
-                    </Divider>
-                    <Card id="order"
-                        style={{ width: '100%' }}
-                        actions={[
-                        <EditOutlined key="edit" />,
-                        <EllipsisOutlined key="ellipsis" />,
-                        ]}
-                    >
-                        <Meta
-                        avatar={<Avatar src="https://www.flaticon.com/svg/vstatic/svg/848/848043.svg?token=exp=1619981902~hmac=bc98b49598df719fa58d79c1c0eb6f6e" />}
-                        title="Order Number"
-                        description="Order Stage"
-                        />
-                    </Card>
+                    {orders.map((order, index) =>(
+                                    <Card id={order.id}
+                                    style={{ width: '100%' }}
+                                    actions={[
+                                    <EditOutlined key="edit" />,
+                                    <EllipsisOutlined key="ellipsis" />,
+                                    ]}
+                                >
+                                    <Meta
+                                    title={"Your order id is: "+order._id}
+                                    description={order.snakes}
+                                    />
+                                </Card> 
+                                ))}
                 </Drawer>
 
                 <div id="menu-container">

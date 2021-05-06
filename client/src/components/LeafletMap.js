@@ -22,15 +22,13 @@ export default function LeafletMap(props) {
     props.his.push('/menue',{
         customer : props.customer,
     });}
-
         return (
         <>
             <MapContainer 
             center={props.center} zoom={18} scrollWheelZoom={false} style={{height: "90vh"}}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    
+                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'                  
                 />
                 <Marker position={props.center} iconUrl = {"https://static.thenounproject.com/png/780108-200.png"}>
                     <Popup>Your location is here </Popup>

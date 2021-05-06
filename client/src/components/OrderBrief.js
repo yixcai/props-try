@@ -20,7 +20,7 @@ export default function OrderBrief(props) {
         <div>
             <Modal visible={modalVisible} title = {"OrderId: " + props.order._id}
                 onOk={handleClose} onCancel= {handleClose}>
-                <p>Vendor: {props.order.vendor.name}</p>
+                <p>Vendor: {props.order.vendor._id}</p>
                 <p>{snacks}</p >
             </Modal>
         
