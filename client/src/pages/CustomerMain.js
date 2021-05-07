@@ -1,22 +1,19 @@
-import {Component, useState, useEffect} from 'react';
-import {Button, Navbar, Nav, Container, Modal} from 'react-bootstrap';
-import {Divider, Drawer, Row, Col, Card, InputNumber,Avatar,PageHeader} from 'antd';
-import { EditOutlined, EllipsisOutlined} from '@ant-design/icons';
+import {useState, useEffect} from 'react';
+import {Button, Navbar, Nav,  Modal} from 'react-bootstrap';
+import {Divider, Drawer, Row, Col, Card, InputNumber} from 'antd';
 import 'antd/dist/antd.css';
 import '../pages/main.css';
 
 import axios from "../commons/axios"
 import Layout, { Footer } from 'antd/lib/layout/layout';
 import OrderList from '../components/OrderList.js';
-import Menu from '../components/Menu.js';
-import LeafletMap  from '../components/LeafletMap.js';
 import { message } from 'antd'; 
-import { compareSync } from 'bcryptjs';
 import {useHistory} from 'react-router-dom';
 
 
 
 const{Meta}= Card;
+
 function onChange(value) {
     console.log('changed', value);
   }
@@ -34,7 +31,6 @@ export default function CustomerMain(props) {
     const[orders, setOrders] = useState([]);
     const[order, setOrder] = useState([]);
 
-    const [title, setTitle] = useState('');
     const [options, setOptions] = useState([]);
     
 

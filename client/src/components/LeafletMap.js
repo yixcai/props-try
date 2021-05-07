@@ -1,11 +1,7 @@
-import { PresetColorTypes } from 'antd/lib/_util/colors';
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import Menu from './Menu.js';
 import {Icon} from "leaflet";
-import {Jumbotron, Button, OverlayTrigger,Tooltip, Modal, Form} from 'react-bootstrap';
-import axios from '../commons/axios.js';
-import { message } from 'antd';
+import {Button} from 'react-bootstrap';
 import {useHistory} from "react-router-dom";
 
 

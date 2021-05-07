@@ -1,14 +1,10 @@
 import 'antd/dist/antd.css';
 import '../pages/main.css';
 import LeafletMap  from '../components/LeafletMap.js';
-import {PageHeader,Divider, Drawer, Row, Col, Card, InputNumber,Avatar} from 'antd';
-import {Component, useState, useEffect} from 'react';
-import { axios } from '../commons/axios';
+import {PageHeader} from 'antd';
 
 
 export default function CustomerMain(props) {
-    const [drawerVisible, setDrawerVisible] = useState(false); 
-    const handleDrawerClose = () => setDrawerVisible(false); 
 
     return (
         <>
