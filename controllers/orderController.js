@@ -33,7 +33,7 @@ exports.orderRequestGet = function(req, res) {
         if (orders.length == 0) {
             res.status(404). json({success: false, errMessage: "no order found" }) 
         } else {
-            res.status(200).json({success: true, all0rders: orders})
+            res.status(200).json({success: true, allOrders: orders})
         }
     })
 }
