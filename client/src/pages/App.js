@@ -49,7 +49,7 @@ function App(props) {
             position: [lat,lng]
           });
         }else{
-          message.error(response.data.error)
+          message.error("we dont know this account")
         }
       }).catch(error =>{
         console.log(error)

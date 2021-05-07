@@ -47,7 +47,7 @@ export default function CustomerMain(props) {
     const onSubmit = () => {
         if (!props.location.state.customer){
             message.error("You need to login to place order!")
-            history.goBack()
+            history.push('/')
 
         }else{
         var submitOrder = []
