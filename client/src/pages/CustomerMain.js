@@ -139,20 +139,7 @@ export default function CustomerMain(props) {
                     width={"35%"}>
                     <h2>All Orders</h2>
                     <Divider/>
-                    {orders.map((order, index) =>(
-                                    <Card id={order.id}
-                                    style={{ width: '100%' }}
-                                    actions={[
-                                    <EditOutlined key="edit" />,
-                                    <EllipsisOutlined key="ellipsis" />,
-                                    ]}
-                                >
-                                    <Meta
-                                    title={"Your order id is: "+order._id}
-                                    description={order.snakes}
-                                    />
-                                </Card> 
-                                ))}
+                    <OrderList orders={orders} />
                 </Drawer>
 
                 <div id="menu-container">
@@ -161,7 +148,7 @@ export default function CustomerMain(props) {
                             <h2>Coffee</h2>
                         </Divider>
                     {snacks.map((snack, index) =>(
-                        <Col span={2}>
+                        <Col span={8}>
                         <Card id="coffeemenu" hoverable
                                 cover={<img alt="" src={snack.image} ></img>}
                             >
