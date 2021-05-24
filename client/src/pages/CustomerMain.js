@@ -22,7 +22,6 @@ export default function CustomerMain(props) {
     console.log(props);
     return (
         <>
-            <Layout>
                 <Header customer = {props.location.state.customer}
                         vendor = {props.location.state.vendor}
                         path = {props.location.pathname}/>
@@ -34,7 +33,6 @@ export default function CustomerMain(props) {
                         <h2>Le Sillage</h2>
                     </Divider>
                 </Footer>
-            </Layout>
         </>
     )
 }
