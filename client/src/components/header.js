@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button,Navbar, Nav,Modal,Form} from 'react-bootstrap';
+import {Button,Navbar, Nav,Modal,Form,DropdownButton,ButtonGroup,Dropdown} from 'react-bootstrap';
 import {useState, useEffect  } from 'react';
 import {Divider, Drawer,message,Card,InputNumber} from 'antd';
 import OrderList from '../components/OrderList.js';
@@ -35,42 +35,6 @@ function Header(props) {
     let history = useHistory();
     const goHomePage = () => {history.push('/')};
 
-    const onSubmit = () => {
-        if (!props.customer){
-            message.error("Sorry, you have to login before ordering")
-            history.push('/')
-        }else{
-            // change the order format and store in the db "orders" cluster
-            var submitOrder = []
-            for (var i = 0; i < order.length; i++){
-                if(Number.isFinite(order[i])){
-                    submitOrder.push({
-                        "name":snacks[i].name,
-                        "qty":order[i]
-                    })
-                }
-            }
-            if (submitOrder.length ===0){
-                setModalVisible(false)
-                message.error("Sorry, you cannot enter empty snacks~")
-            }else{
-                // post the order info 
-                axios.post('/order/create',{
-                    customer: props.customer.id,
-                    vendor:props.vendor.id, 
-                    snacks: submitOrder
-                }).then(response =>{
-                    if(response.data.success){
-                        message.success("Congrats! Your order is received and you can pick up later!")
-                        setModalVisible(false)
-                    }else{
-                        message.error("Sorry, your order is failed to record! Please try again later!")
-                    }
-                })
-            }
-        }
-    }
-
     const onLogin = () => {
         axios.post("/customer/login", {email: email, password: password}).then(response => {
           if(response.data.success){
@@ -89,36 +53,47 @@ function Header(props) {
           console.log(error)
           })
       }
+    
+    const onLogout = () => {
+        history.push(props.path,{
+            vendors: props.vendors,
+            position: props.center,
+            vendor: props.vendor,
+        })
+    }
+
+    const onProfile = () => {
+        history.push('/profile',{
+            customer: props.customer,
+        })
+    }
 
     
 
     useEffect(() => {
-        if(props.vendor){
-            axios.get('/snack').then(response => {
-                setSnacks(response.data.snacks)
-            })
-        }
-
         if(props.customer){         
             axios.get('/order?customer=' + props.customer.id).then(response => {
                 setOrders(response.data.allOrders)
             })
             setTitle("Welcome to LE Sillage, "+ props.customer.givenName);
             setBottons([<Nav class="justify-content-end">
-                            <Button variant="outline-light" onClick={handleModalShow}>My Cart</Button>
                             <Button variant="outline-light"  key = "1" onClick = {handleDrawerShow}>Order History</Button>
-                            <Button variant="outline-light">My Account</Button>
+                            <DropdownButton as={ButtonGroup} title="My Account" variant="outline-light">
+                                <Dropdown.Item onClick={onProfile}>Profile</Dropdown.Item>
+                                <Dropdown.Item onClick={onLogout} >Logout</Dropdown.Item>
+                            </DropdownButton>
                         </Nav>]);
         }
         else{
             setTitle("Welcome to LE Sillage")
             setBottons([<Nav class="justify-content-end">
-                            <Button variant="outline-light" onClick={handleModalShow}>My Cart</Button>
                             <Button variant="outline-light" size = "lg" onClick = {handleShow}>Login</Button>
                         </Nav>])
 
         }
-    }, [title,bottons,props.customer,props.location,props.vendor]);
+    }, [props.customer,props.location,props.vendor]);
+
+    console.log(history)
 
     return(
             <Navbar id="nav" >
@@ -172,31 +147,6 @@ function Header(props) {
                         </Button>
                     </Modal.Footer>
                 </Modal>    
-
-                <Modal show={modalVisible} onHide={handleModalClose}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>My cart</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            {snacks.map((snack, index) =>(
-                                <Card style={{marginBottom:"2vh"}}size={"small"} key={snack._id}>
-                                    <Card
-                                        title={snack.name + "    " + snack.price}
-                                    />
-                                    <Divider style={{borderWidth:5, borderColor: '#593e34' }} plain>
-                                    </Divider>
-                                    <Card/>
-                                    <InputNumber key ={snack._id} min={0} defaultValue={0} style ={{marginLeft:"80%"}} onChange={e => onChange(index, e)} />
-                                        
-                                </Card>
-                            ))}
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="dark" onClick={onSubmit}>
-                                Submit
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
             </Navbar> 
                
     )
