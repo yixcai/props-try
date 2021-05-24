@@ -56,8 +56,8 @@ function Header(props) {
             }else{
                 // post the order info 
                 axios.post('/order/create',{
-                    customer: props.location.state.customer.id,
-                    vendor:props.location.state.vendor.id, 
+                    customer: props.customer.id,
+                    vendor:props.vendor.id, 
                     snacks: submitOrder
                 }).then(response =>{
                     if(response.data.success){
