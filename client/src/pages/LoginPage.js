@@ -1,8 +1,9 @@
 import {useState, useEffect  } from 'react';
-import {Jumbotron, Button, OverlayTrigger,Tooltip, Modal, Form} from 'react-bootstrap';
+import {Jumbotron, Button, OverlayTrigger,Tooltip, Modal, Form,Navbar, Nav} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from '../commons/axios.js';
-import { message, Typography  } from 'antd';
+import { message, Typography ,Layout, Menu, } from 'antd';
+import Header from '../components/header.js';
 
 function App(props) { 
     const [show, setShow] = useState(false);
@@ -113,9 +114,7 @@ function App(props) {
           </p>
         </Jumbotron>
       </div>
-      
-      
-    );
+    )
 } 
 
 export default App;

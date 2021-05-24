@@ -65,3 +65,9 @@ p{
 #order{
     background-color: #fbf4eb;
 }
+#rating{
+    background-color: #fbf4eb;
+}
+#ratebtn{
+    margin: -5px 10px 0 0;
+}
