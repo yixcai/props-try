@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button,Navbar, Nav,Modal,Form,DropdownButton,ButtonGroup,Dropdown} from 'react-bootstrap';
+import {Button,Navbar, Nav,Modal,Form,DropdownButton,ButtonGroup,Dropdown,OverlayTrigger,Tooltip} from 'react-bootstrap';
 import {useState, useEffect  } from 'react';
 import {Divider, Drawer,message,Card,InputNumber} from 'antd';
 import OrderList from '../components/OrderList.js';
@@ -21,16 +21,12 @@ function Header(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const[order, setOrder] = useState([]);
-    const [snacks, setSnacks] = useState([]);
-    const[modalVisible, setModalVisible]= useState(props.modalVisible);
-    const handleModalShow = () => setModalVisible(true);
-    const handleModalClose = () => setModalVisible(false);
 
-    const onChange = (index, event) => {
-        let newArray = [...order];
-        newArray[index] = event;
-        setOrder(newArray);
-    }
+    const renderTooltip = (props) => (
+        <Tooltip id = 'button-tooltip' {...props}>
+          Click here to go homepage
+        </Tooltip>
+      );
 
     let history = useHistory();
     const goHomePage = () => {history.push('/')};
@@ -93,13 +89,16 @@ function Header(props) {
         }
     }, [props.customer,props.location,props.vendor]);
 
-    console.log(history)
-
     return(
             <Navbar id="nav" >
-                <Button variant="outline-light" size="" onClick={goHomePage}>
-                    <img alt="" src="/coffee-truck.png" width="70" height="50" className="d-inline-block align-top"/>
-                </Button>
+                <OverlayTrigger
+                    placement = "right"
+                    delay = {{show:250, hide: 300}}
+                    overlay = {renderTooltip} >
+                    <Button variant="outline-light" size="" onClick={goHomePage}>
+                        <img alt="" src="/coffee-truck.png" width="70" height="50" className="d-inline-block align-top"/>
+                    </Button>
+                </OverlayTrigger>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="navbar navbar-expand-lg navbar-light bg-light">
                 <nav class="navbar navbar-dark">
