@@ -24,6 +24,7 @@ function Header(props) {
     const [target, setTarget] = useState('');
     const [ordershow,setOrdershow] = useState([]);
 
+
     const renderTooltip = (props) => (
         <Tooltip id = 'button-tooltip' {...props}>
           Click here to go homepage
@@ -64,6 +65,10 @@ function Header(props) {
         message.success("Your account has been successfully logout")
     }
 
+    const onRegister = () =>{
+        
+    }
+
     const onProfile = () => {
         history.push('/profile',{
             customer: props.customer,
@@ -92,7 +97,7 @@ function Header(props) {
         else{
             setTitle("Welcome to LE Sillage")
             setBottons([<Nav class="justify-content-end">
-                            <Button variant="outline-light" size = "lg" onClick = {handleShow}>Login</Button>
+                            <Button variant="outline-light" size = "lg" onClick = {handleShow}>Login/register</Button>
                         </Nav>])
 
         }
@@ -148,6 +153,9 @@ function Header(props) {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
+                        close
+                        </Button>
+                        <Button variant="secondary" onClick={onRegister}>
                         register
                         </Button>
                         <Button variant="primary" onClick={onLogin}>

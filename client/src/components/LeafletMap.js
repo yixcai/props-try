@@ -4,7 +4,7 @@ import {Icon} from "leaflet";
 import {Button,Modal,Form} from 'react-bootstrap';
 import {useHistory} from "react-router-dom";
 import axios from "../commons/axios";
-import React, {useState, useMemo} from 'react';
+import React, {useState, useMemo,useEffect} from 'react';
 import {message} from 'antd';
 
 export default function LeafletMap(props) {
@@ -19,6 +19,8 @@ export default function LeafletMap(props) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [address, setAddress] = useState('');
+    const [customerLocated,setCustomerLocated] = useState([])
+
 
     const eventHandlers = useMemo(
         (e)=> ({
@@ -58,6 +60,15 @@ export default function LeafletMap(props) {
         customer : props.customer,
         vendor: vendor
     });}
+
+    useEffect(() => {
+        if(history.location.pathname !== '/vendor'){
+            setCustomerLocated([<Marker position={props.center} iconUrl = {"https://static.thenounproject.com/png/780108-200.png"}>
+                                    <Popup>Your location is here </Popup>
+                                </Marker>])
+        }
+    })
+    console.log(history)
         return (
         <><Modal show = {show} onHide = {handleClose} style = {{marginTop: '2vh'}}>
                 <Modal.Header closeButton>
@@ -88,9 +99,7 @@ export default function LeafletMap(props) {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'                  
                 />
-                <Marker position={props.center} iconUrl = {"https://static.thenounproject.com/png/780108-200.png"}>
-                    <Popup>Your location is here </Popup>
-                </Marker>
+                {customerLocated}
                 {
                     props.vendors.map((vendor) => (
                         <Marker position={vendor.location} icon = {vendorIcon}>
@@ -99,7 +108,7 @@ export default function LeafletMap(props) {
                                 vendor.location[0] - props.center[0],
                                 vendor.location[1] - props.center[1]
                                  ))*11).toFixed(2)+"km"}
-                            <Button  variant="outline-dark" size="sm"  onClick={() =>Log(vendor)}>
+                            <Button  variant="outline-dark" onClick={() =>Log(vendor)}>
                                 Order from this Vendor
                             </Button>
                             </Popup>

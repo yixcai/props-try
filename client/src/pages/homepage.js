@@ -10,6 +10,7 @@ export default function CustomerMain(props) {
     return (
         <>
             <Header customer ={props.location.state.customer}
+                    vendors = {props.location.state.vendors}
                     center = {props.location.state.position}
                     path = {props.location.pathname}
                     password = {props.location.state.password}/>

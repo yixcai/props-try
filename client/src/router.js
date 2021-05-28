@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from  'react-router-dom';
-import Login from './pages/LoginPage.js';
+import MainHome from './pages/MainHome.js';
 import CustomerHomePage from './pages/homepage.js';
 import CustomerMain from './pages/CustomerMain.js';
-import Homepage2 from './pages/App(1).js';
+import CustomerHome from './pages/CustomerApp';
 import CustomerRate from './pages/CustomerRate.js';
 import CustomerProfile from './pages/CustomerProfile.js';
 import VendorPark from './pages/VendorPark.js';
@@ -15,10 +15,10 @@ class Router extends React.Component{
         return (
             <BrowserRouter>
                 <Switch>
-                    <Route path="/" exact component={Login}></Route>
+                    <Route path="/" exact component={MainHome}></Route>
                     <Route path="/customer" exact component={CustomerHomePage}></Route>
                     <Route path="/menue" exact component={CustomerMain}></Route>
-                    <Route path="/homepage" exact component={Homepage2}></Route>
+                    <Route path="/homepage" exact component={CustomerHome}></Route>
                     <Route path="/rate" exact component={CustomerRate}></Route>
                     <Route path="/profile" exact component={CustomerProfile}></Route>
                     <Route path="/vendor" exact component={VendorPark}></Route>

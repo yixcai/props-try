@@ -197,20 +197,20 @@ export default class   extends React.Component {
 
 
     renderActions = () => {
-        if(window.location.pathname ==="/customer"){
+        if(window.location.pathname ==="/orders"){
+            return(
+            [
+                    <EyeOutlined onClick = {()=> this.handleShow()} />,
+                    <CheckOutlined onClick = {()=> this.onOrderMark()} />
+            ]
+            )
+        }else {
             return (
                 [
                     <EyeOutlined onClick = {() => this.handleShow()} />, 
                     <EditOutlined onClick = {() => this.handleEditOrder()}/>,
                     <CloseOutlined onClick = {() => this.handleDeleteOrder()}/>
                 ]
-            )
-        }else if(window.location.pathname ==="/orders"){
-            return(
-            [
-                    <EyeOutlined onClick = {()=> this.handleShow()} />,
-                    <CheckOutlined onClick = {()=> this.onOrderMark()} />
-            ]
             )
         }
     }
@@ -323,36 +323,6 @@ export default class   extends React.Component {
             }
         })
     }
-
-    // onOrderDelete = () =>{
-    //     var statusToBeUpdated, cancelYes
-    //     if(this.props.order.status === "outstanding"){
-    //         statusToBeUpdated = 'cancelled'
-    //         if(this.state.diff < 10){
-    //             cancelYes = true
-    //         }
-    //         axios.post('/order/'+this.props.order._id+'/update',{
-    //             status: statusToBeUpdated
-    //         }).then(response =>{
-    //             if(response.data.success){
-    //                 message.success("Order has been cancelled!")
-    //                 this.setState({deleteModalVisible: false});
-    //             }else{
-    //                 message.error("Order cancelled errored!")
-    //             }
-    //         })
-    //     }else{
-    //         notification.open({
-    //             message:"order cannot be cancelled",
-    //             duration: 3
-    //         });
-    //     }
-    // }
-
-
-
-
-
 
     render() {
         return (
