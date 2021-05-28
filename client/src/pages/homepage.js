@@ -7,13 +7,12 @@ import Footer from '../components/Footer';
 
 export default function CustomerMain(props) {
 
-    console.log(props)
     return (
         <>
             <Header customer ={props.location.state.customer}
-                    vendors = {props.location.state.vendors}
                     center = {props.location.state.position}
-                    path = {props.location.pathname}/>
+                    path = {props.location.pathname}
+                    password = {props.location.state.password}/>
                     
             <LeafletMap center = {props.location.state.position}
                         vendors = {props.location.state.vendors}

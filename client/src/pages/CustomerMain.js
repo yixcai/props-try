@@ -22,16 +22,13 @@ function onChange(value) {
 export default function CustomerMain(props) {
 
     //initial the constant that is used in presentation
-    const [drawerVisible, setDrawerVisible] = useState(false); 
-    const handleDrawerClose = () => setDrawerVisible(false); 
-    const handleDrawerShow = () => setDrawerVisible(true); 
+
     const[modalVisible, setModalVisible]= useState(props.modalVisible);
     const handleModalShow = () => setModalVisible(true);
     const handleModalClose = () => setModalVisible(false);
 
     //initial the constant that will used to stored data from db or previous pages     
     const [snacks, setSnacks] = useState([]);
-    const[orders, setOrders] = useState([]);
     const[order, setOrder] = useState([]);
     
     
@@ -86,9 +83,6 @@ export default function CustomerMain(props) {
     // can check processing order that ordered by this customerID
     useEffect(() => {
         if(props.location.state.customer){
-            axios.get('/order?customer=' + props.location.state.customer.id).then(response => {
-                setOrders(response.data.allOrders)
-            })
         }
         axios.get('/snack').then(response => {
             setSnacks(response.data.snacks)
@@ -101,9 +95,12 @@ export default function CustomerMain(props) {
     //front end design
     return (
         <>
+            <Header customer ={props.location.state.customer}
+                    vendors = {props.location.state.vendors}
+                    center = {props.location.state.position}
+                    path = {props.location.pathname}
+                    password = {props.location.state.password}/>
             <Layout>
-                <Header customer = {props.location.state.customer}
-                        vendor = {props.location.state.vendor}/>
                 <Navbar>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">

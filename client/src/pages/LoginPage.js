@@ -39,10 +39,13 @@ function App(props) {
         vendors: vendors
       });
     }
+
+    const onVendorHome = () =>{
+      props.history.push("/vendorHome")
+    }
     
     return (
       <div>
-        <Header customer = {customer}/>
         <Jumbotron style = {{background: "white" , width: '40%', margin :'auto', marginTop: '10%'}}>
           <h1> 
           <img alt="" src="/coffee-truck.png" width="70" height="50" className="d-inline-block align-top"/>
@@ -52,7 +55,8 @@ function App(props) {
           Tell me more about the van。
           </p>
           <p>
-            <Button variant = "outline-dark" onClick = {onSkip}>Customer</Button>
+            <Button variant = "outline-dark" onClick = {onSkip}>Customer?</Button>
+            <Button variant = "outline-dark" onClick = {onVendorHome}> vendor?</Button>
           </p>
         </Jumbotron>
       </div>

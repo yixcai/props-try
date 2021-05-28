@@ -70,3 +70,43 @@ exports.customerLoginPost = function(req,res){
         }
     })
 }
+
+// POST request to update customer
+exports.customerUpdatePost = function(req, res){
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(req.body.password, salt, (err, hash) => {
+            if (err) {
+                throw (err);
+            }
+            Customer.findOne({email:req.body.email}, function(err, duplicateCustomer){
+                if(duplicateCustomer){
+                    if(duplicateCustomer._id != req.params.id){
+                        console.log(duplicateCustomer._id)
+                        console.log(req.params.id)
+                        res.status(409).json({success: false, message: "another customer has already registered that email"})
+                    }
+                }else{
+                    Customer.findOneAndUpdate(
+                        {_id: req.params.id},
+                        {
+                            familyName: req.body.familyName, 
+                            givenName: req.body.givenName, 
+                            email: req.body.email, 
+                            password: hash
+                        },
+                        {new: true},
+                        function (err, updatedCustomer) {
+                            if(err){
+                                res.status(404).json({success: false, message:"customer email does not exist"});
+                            }else{
+                                res.status(200).json({success: true, updatedCustomer: updatedCustomer});
+                            }
+                        }
+                    )
+                }
+            })
+            
+        });
+    });
+                   
+}

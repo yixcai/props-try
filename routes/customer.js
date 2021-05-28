@@ -7,6 +7,9 @@ var customerController = require('../controllers/customerController');
 router.post('/register', customerController.customerNewUserPost)
 
 // POST request for customer login 
-router.post('/login', customerController.customerLoginPost)
+router.post('/login', customerController.customerLoginPost);
+
+// POST request for customer update 
+router.post('/update/:id', customerController.customerUpdatePost)
 
 module.exports = router;

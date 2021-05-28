@@ -3,9 +3,12 @@ import { BrowserRouter, Switch, Route } from  'react-router-dom';
 import Login from './pages/LoginPage.js';
 import CustomerHomePage from './pages/homepage.js';
 import CustomerMain from './pages/CustomerMain.js';
-import Homepage2 from './pages/HomePage2.js';
+import Homepage2 from './pages/App(1).js';
 import CustomerRate from './pages/CustomerRate.js';
 import CustomerProfile from './pages/CustomerProfile.js';
+import VendorPark from './pages/VendorPark.js';
+import VendorOrders from './pages/VendorOrders.js';
+import App from './pages/App.js';
 
 class Router extends React.Component{
     render() {
@@ -18,6 +21,9 @@ class Router extends React.Component{
                     <Route path="/homepage" exact component={Homepage2}></Route>
                     <Route path="/rate" exact component={CustomerRate}></Route>
                     <Route path="/profile" exact component={CustomerProfile}></Route>
+                    <Route path="/vendor" exact component={VendorPark}></Route>
+                    <Route path="/orders" exact component={VendorOrders}></Route>
+                    <Route path="/vendorHome" exact component={App}></Route>
 
                 </Switch>
             </BrowserRouter>

@@ -21,6 +21,8 @@ function Header(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const[order, setOrder] = useState([]);
+    const [target, setTarget] = useState('');
+    const [ordershow,setOrdershow] = useState([]);
 
     const renderTooltip = (props) => (
         <Tooltip id = 'button-tooltip' {...props}>
@@ -29,18 +31,21 @@ function Header(props) {
       );
 
     let history = useHistory();
-    const goHomePage = () => {history.push('/')};
+    const goHomePage = () => {history.push('/',{
+        customer :props.customer
+    })};
 
     const onLogin = () => {
         axios.post("/customer/login", {email: email, password: password}).then(response => {
           if(response.data.success){
-            //传递本页信息到下一页
               history.push(props.path, {
               customer : response.data.customer,
               vendors: props.vendors,
               position: props.center,
               vendor: props.vendor,
+              password: password,
             });
+            message.success("Login succsess!")
             setShow(false);
           }else{
             message.error("we dont know this account")
@@ -56,21 +61,22 @@ function Header(props) {
             position: props.center,
             vendor: props.vendor,
         })
+        message.success("Your account has been successfully logout")
     }
 
     const onProfile = () => {
         history.push('/profile',{
             customer: props.customer,
+            password: props.password,
         })
     }
-
-    
 
     useEffect(() => {
         if(props.customer){         
             axios.get('/order?customer=' + props.customer.id).then(response => {
                 setOrders(response.data.allOrders)
             })
+            setTarget('customer');
             setTitle("Welcome to LE Sillage, "+ props.customer.givenName);
             setBottons([<Nav class="justify-content-end">
                             <Button variant="outline-light"  key = "1" onClick = {handleDrawerShow}>Order History</Button>
@@ -79,6 +85,9 @@ function Header(props) {
                                 <Dropdown.Item onClick={onLogout} >Logout</Dropdown.Item>
                             </DropdownButton>
                         </Nav>]);
+            setOrdershow([<OrderList orders={orders} 
+                            target = {'customer'}
+                            id = {props.customer.id} />])
         }
         else{
             setTitle("Welcome to LE Sillage")
@@ -88,7 +97,7 @@ function Header(props) {
 
         }
     }, [props.customer,props.location,props.vendor]);
-
+    
     return(
             <Navbar id="nav" >
                 <OverlayTrigger
@@ -113,7 +122,7 @@ function Header(props) {
                     onClose = {handleDrawerClose}
                     width={"35%"}>
                     <h2>All Orders</h2><Divider/>
-                    <OrderList orders={orders} />
+                    {ordershow}
                 </Drawer>
 
                 <Modal show={show} onHide={handleClose} style={{ marginTop: '2vh' }} >
@@ -139,15 +148,14 @@ function Header(props) {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        register
                         </Button>
                         <Button variant="primary" onClick={onLogin}>
                         Login
                         </Button>
                     </Modal.Footer>
                 </Modal>    
-            </Navbar> 
-               
+            </Navbar>         
     )
 }
 

@@ -1,12 +1,8 @@
 import React, {useState} from 'react'
-import { Form, Input, Divider, Typography, message } from 'antd';
+import { Button, Form, Input, Divider, Typography, message } from 'antd';
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
-import { Button} from 'react-bootstrap';
 import axios from '../commons/axios.js';
-import Footer from "../components/Footer.js";
 import Header from '../components/header.js';
-import {useHistory} from 'react-router-dom';
-
 
 export default function CustomerProfile(props) {
 
@@ -16,7 +12,7 @@ export default function CustomerProfile(props) {
     const [givenName,setGivenName] = useState(props.location.state.customer.givenName);
     const [familyName,setFamilyName] = useState(props.location.state.customer.familyName);
     const [email,setEmail] = useState(props.location.state.customer.email);
-    const [password,setPassword] = useState(props.location.state.customer.password);
+    const [password,setPassword] = useState(props.location.state.password);
     const [disable, setDisable] = useState(true);
 
     const enablePassword = () => {
@@ -24,7 +20,6 @@ export default function CustomerProfile(props) {
         else{setDisable(true)}
     }
 
-    let history = useHistory();
     const onSubmit = () => {
         const updateBody = {
             "givenName": givenName,
@@ -42,49 +37,43 @@ export default function CustomerProfile(props) {
             message.error("Another customer already registered that email")
         })
     }
-
-    console.log(history)
+    
     return (
         <>
             <Header customer={props.location.state.customer}
-            path={"/"}/>
-            <div id="profileForm" style={{ minHeight: 500 }}>
+                    password={props.location.state.password}
+                    path = {"/"}/>
+            <div style={{width: '40%', margin: 'auto'}}>
                 <Form form={form} layout="vertical">
                     <Form.Item label="Given Name">
-                        <Input prefix={<UserOutlined className="site-form-item-icon" />} 
-                        placeholder="given name" defaultValue={givenName}
+                        <Input placeholder="given name" defaultValue={givenName}
                             onChange={e => setGivenName(e.target.value)} />
                     </Form.Item>
                     <Form.Item label="Family Name">
-                        <Input prefix={<UserOutlined className="site-form-item-icon" />}
-                        placeholder="family name" defaultValue={familyName}
+                        <Input placeholder="family name" defaultValue={familyName}
                             onChange={e => setFamilyName(e.target.value)} />
                     </Form.Item>
                     <Form.Item label="Email">
-                        <Input prefix={<MailOutlined className="site-form-item-icon" />}
-                        placeholder="email" defaultValue={email}
+                        <Input placeholder="email" defaultValue={email}
                             onChange={e => setEmail(e.target.value)} />
                     </Form.Item>
                     <Divider>
                         Click <Link onClick={enablePassword} target="_blank">
                             here
-                        </Link> to change password : )
+                        </Link> to change password
                     </Divider>
                     <Form.Item label="Password">
-                        <Input prefix={<LockOutlined className="site-form-item-icon" />} 
-                        placeholder="New password" /*change text in placeholder*/
+                        <Input placeholder="email" 
                             type = "password"
-                            defaultValue={props.location.state.customer.password}
+                            defaultValue={props.location.state.password}
                             disabled={disable}
                             onChange={e => setPassword(e.target.value)} />
                     </Form.Item>
                     <Form.Item>
-                        <Button id="submitBtn" variant = "outline-dark" onClick={onSubmit}>Submit</Button>
+                        <Button type="dark" onClick={onSubmit}>Submit</Button>
                     </Form.Item>
                 </Form>
             </div>
-            <Footer />
         </>
     )
 }
-
