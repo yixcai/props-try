@@ -1,0 +1,50 @@
+[
+    {
+        "name": "Big cake",
+        "image": "https://images.unsplash.com/photo-1540337706094-da10342c93d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+        "price": "$10",
+        "detail": "Intensely flavored and moist chocolate cake made with dark cocoa."
+    },
+    {
+        "name":"Small cake",
+        "image":"https://images.pexels.com/photos/1055271/pexels-photo-1055271.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+        "price":"$10",
+        "detail": "Our classic vanilla cake with the addition of fresh lemon zest and extract."
+    },
+    {
+        "name": "Long black",
+        "image": "https://images.unsplash.com/photo-1565275369836-d86de057255a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2734&q=80",
+        "price": "$10",
+        "detail": "A classic long black coffee with The Coffee Club’s Signature Blend. As you’d expect, it’s topped with the smoothest espresso crema around."
+    },
+    {
+        "name": "Cappuccino",
+        "image": "https://images.pexels.com/photos/6347/coffee-cup-working-happy.jpg?cs=srgb&dl=pexels-kaboompics-com-6347.jpg&fm=jpg",
+        "price": "$10",
+        "detail": "A shot of espresso with textured milk poured immediately. This creamy traditional coffee is then garnished with a light dusting of chocolate."
+    },
+    {
+        "name":"Flat white",
+        "image":"https://images.pexels.com/photos/2396220/pexels-photo-2396220.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+        "price":"$10",
+        "detail": "The rich, full flavour of The Coffee Club’s Signature Blend espresso, topped with textured milk."
+    },
+    {
+        "name":"Latte",
+        "image":"https://images.pexels.com/photos/2067399/pexels-photo-2067399.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        "price":"$10",
+        "detail": "Traditional espresso with textured milk and a delicate layer of milk crema on top. The flavour is slightly milder than a flat white as a greater volume of textured milk is added."
+    },
+    {   
+        "name": "Plain biscuit",
+        "image": "https://images.pexels.com/photos/1758207/pexels-photo-1758207.jpeg?cs=srgb&dl=pexels-lisa-1758207.jpg&fm=jpg",
+        "price": "$10",
+        "detail": "Fill your biscuit tin with goodies from our collection. Try this basic recipe for fail-safe biscuits every time."
+    },
+    {
+        "name":"Fancy biscuit",
+        "image":"https://images.pexels.com/photos/5708912/pexels-photo-5708912.jpeg?cs=srgb&dl=pexels-gabby-k-5708912.jpg&fm=jpg",
+        "price":"$10",
+        "detail": "Fill your biscuit tin with goodies from our collection. Try this basic amazing fancy biscuits every time."
+    }
+]

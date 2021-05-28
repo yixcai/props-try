@@ -7,7 +7,8 @@ exports.orderNewPost = function(req, res) {
     const order = new Order({
         customer: req.body.customer,
         vendor: req.body.vendor,
-        snacks: req.body.snacks
+        snacks: req.body.snacks,
+        total: req.body.total
     });
     order.save((err, createNewOrder) => {
         if (err) {
@@ -44,10 +45,9 @@ exports.orderRequestGet = function(req, res) {
  */
 exports.orderStatusUpdate = function(req, res) {
     Order.findByIdAndUpdate(
-        req.params.id, {
-            snacks: req.body.snacks,
-            status: req.body.status
-        }, { new: true },
+        req.params.id, 
+        req.body, 
+        { new: true },
         function(err, updatedChange) {
             if (err) {
                 res.status(404).json({

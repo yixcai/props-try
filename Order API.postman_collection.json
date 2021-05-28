@@ -1,0 +1,525 @@
+{
+	"info": {
+		"_postman_id": "e1202e02-df74-438f-be67-ca622ddd39b7",
+		"name": "Order API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create New Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customer\": \"6080bcf32a2dc606befa728f\",\n    \"vendor\": \"607f81bd8e579e77be6b0c88\",\n    \"snacks\": [{\"Latte\":3}, {\"Big cake\":3}]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{baseURL}}/order/create",
+					"protocol": "http",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"order",
+						"create"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Cutomer Vivien had an order",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customer\": \"6080bcf32a2dc606befa728f\",\n    \"vendor\": \"607f81bd8e579e77be6b0c88\",\n    \"snacks\": [{\"Latte\":3}, {\"Big cake\":3}]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseURL}}/order/create",
+							"protocol": "http",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"order",
+								"create"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "280"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"118-hWZpATiVhlPOGrjSXJXYxceVgjg\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 22 Apr 2021 00:33:14 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"order\": {\n        \"status\": \"outstanding\",\n        \"snacks\": [\n            {\n                \"Latte\": 3\n            },\n            {\n                \"Big cake\": 3\n            }\n        ],\n        \"_id\": \"6080c44a2a2dc606befa7290\",\n        \"customer\": \"6080bcf32a2dc606befa728f\",\n        \"vendor\": \"607f81bd8e579e77be6b0c88\",\n        \"createdAt\": \"2021-04-22T00:33:14.257Z\",\n        \"updatedAt\": \"2021-04-22T00:33:14.257Z\",\n        \"__v\": 0\n    }\n}"
+				},
+				{
+					"name": "ERROR cannot Create New Order caused by wrong vendor ID",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customer\": \"6080bcf32a2dc606befa728f\",\n    \"vendor\": \"dgwkjdfgukwgfue\",\n    \"snacks\": [{\"Latte\":3}, {\"Big cake\":3}]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseURL}}/order/create",
+							"protocol": "http",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"order",
+								"create"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "335"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"14f-5tv/WMGclhFYxUHvNYZgHocZDMU\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 22 Apr 2021 08:00:28 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": false,\n    \"err\": {\n        \"errors\": {\n            \"vendor\": {\n                \"stringValue\": \"\\\"dgwkjdfgukwgfue\\\"\",\n                \"kind\": \"ObjectId\",\n                \"value\": \"dgwkjdfgukwgfue\",\n                \"path\": \"vendor\",\n                \"reason\": {}\n            }\n        },\n        \"_message\": \"Order validation failed\",\n        \"name\": \"ValidationError\",\n        \"message\": \"Order validation failed: vendor: Cast to ObjectId failed for value \\\"dgwkjdfgukwgfue\\\" at path \\\"vendor\\\"\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Order from Vendor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{baseURL}}/order/{{exampleVondorID}}",
+					"protocol": "http",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"order",
+						"{{exampleVondorID}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Order list of Vendor",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{baseURL}}/order/{{exampleVondorID}}?status=outstanding",
+							"protocol": "http",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"order",
+								"{{exampleVondorID}}"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "outstanding"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "282"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"11a-cWUHDueVkSml0nl58/uv+SWCdeU\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 22 Apr 2021 08:02:58 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"order\": [\n        {\n            \"status\": \"outstanding\",\n            \"snacks\": [\n                {\n                    \"Latte\": 3\n                },\n                {\n                    \"Big cake\": 1\n                }\n            ],\n            \"_id\": \"607fc5bf58b2ee828e98a4db\",\n            \"customer\": \"607bfa0cc1037890d0162f40\",\n            \"vendor\": \"607f770c8e579e77be6b0c86\",\n            \"createdAt\": \"2021-04-21T06:27:11.539Z\",\n            \"updatedAt\": \"2021-04-21T06:27:11.539Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+				},
+				{
+					"name": "ERROR Order cannot get caused by undefined status",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{baseURL}}/order/{{exampleVondorID}}",
+							"protocol": "http",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"order",
+								"{{exampleVondorID}}"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "51"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"33-eJ49bfkYVOLAgTSsDcD5/shzm4M\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 22 Apr 2021 08:08:31 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": false,\n    \"err\": \"Sorry, no order is found!\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Update Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"snacks\": [{\"Cappuccino\":5}, {\"Small cake\":1}]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{baseURL}}/order/{{exampleWrongOrderID}}/update",
+					"protocol": "http",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"order",
+						"{{exampleWrongOrderID}}",
+						"update"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update Order status and snacks",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"snacks\": [{\"Long black\":5}, {\"Small cake\":1}],\n    \"status\": \"fulfilled\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseURL}}/order/{{exampleOrderID}}/update",
+							"protocol": "http",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"order",
+								"{{exampleOrderID}}",
+								"update"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "293"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"125-rHRy7x2Ja2gb9vJoSUsW5KNAbHA\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 22 Apr 2021 00:49:49 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"updatedChange\": {\n        \"status\": \"fulfilled\",\n        \"snacks\": [\n            {\n                \"Long black\": 5\n            },\n            {\n                \"Small cake\": 1\n            }\n        ],\n        \"_id\": \"6080c44a2a2dc606befa7290\",\n        \"customer\": \"6080bcf32a2dc606befa728f\",\n        \"vendor\": \"607f81bd8e579e77be6b0c88\",\n        \"createdAt\": \"2021-04-22T00:33:14.257Z\",\n        \"updatedAt\": \"2021-04-22T00:49:49.606Z\",\n        \"__v\": 0\n    }\n}"
+				},
+				{
+					"name": "ERROR cannot update by wrong orderID",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"snacks\": [{\"Cappuccino\":5}, {\"Small cake\":1}]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseURL}}/order/{{exampleWrongOrderID}}/update",
+							"protocol": "http",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"order",
+								"{{exampleWrongOrderID}}",
+								"update"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "138"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"8a-JhG53vSW5AAR1SY0/yy0slg0V1s\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 22 Apr 2021 08:44:49 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": false,\n    \"err\": {\n        \"stringValue\": \"\\\"exampleWrongOrderID\\\"\",\n        \"kind\": \"ObjectId\",\n        \"value\": \"exampleWrongOrderID\",\n        \"path\": \"_id\",\n        \"reason\": {}\n    }\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "lesillage.herokuapp.com"
+		},
+		{
+			"key": "exampleVondorID",
+			"value": "607f770c8e579e77be6b0c86"
+		},
+		{
+			"key": "exampleOrderID",
+			"value": "6080c44a2a2dc606befa7290"
+		},
+		{
+			"key": "exampleWrongOrderID",
+			"value": "dfhjksdffg3455"
+		}
+	]
+}

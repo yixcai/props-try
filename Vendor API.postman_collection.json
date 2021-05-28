@@ -1,0 +1,360 @@
+{
+	"info": {
+		"_postman_id": "18581933-6d94-4dd2-b9ef-612ffd57645a",
+		"name": "Vendor API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Vendor Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userName\": \"Good Taste\",\n    \"password\": \"456787\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{baseURL}}/vendor/register",
+					"protocol": "http",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"vendor",
+						"register"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Vendor registration",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userName\": \"Good Taste\",\n    \"password\": \"456787\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseURL}}/vendor/register",
+							"protocol": "http",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"vendor",
+								"register"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "110"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"6e-N8EXUkG+Q4MacoDCXrdJVzCziIQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 22 Apr 2021 00:56:15 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"vendor\": {\n        \"userName\": \"Good Taste\",\n        \"password\": \"$2a$10$bTOHIFkWWdYGrvSFUPn1rej19iG1o/EmnNa2bYjTiz9CPqxQLj8JO\"\n    }\n}"
+				},
+				{
+					"name": "ERROR Vendor Register caused by name is registered",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userName\": \"Know know\",\n    \"password\": \"456787\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseURL}}/vendor/register",
+							"protocol": "http",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"vendor",
+								"register"
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "50"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"32-zk+2/8bGRW3+ITJA6QqAaXaRqd8\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 22 Apr 2021 08:03:46 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Sorry, the name is already registered!\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Update vendor location",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"location\": [-37.79, 144.95],\n    \"textAddress\": \"near Melborune Central\",\n    \"parkStatment\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{baseURL}}/vendor/park/{{exampleWrongVendorID}}",
+					"protocol": "http",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"vendor",
+						"park",
+						"{{exampleWrongVendorID}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update \"Good Taste\" location",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"location\": [-37.80019409247999, 144.96522230111776],\n    \"textAddress\": \"near Science Gallery\",\n    \"parkStatment\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseURL}}/vendor/park/{{exampleVendorID}}",
+							"protocol": "http",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"vendor",
+								"park",
+								"{{exampleVendorID}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "312"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"138-ZSWRSzVMPLcElxlM1mmWL5fN1/E\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 22 Apr 2021 01:04:33 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"updatedVendor\": {\n        \"location\": {\n            \"coordinates\": [\n                -37.80019409247999,\n                144.96522230111776\n            ],\n            \"type\": \"Point\"\n        },\n        \"_id\": \"6080c9ae2a2dc606befa7291\",\n        \"userName\": \"Good Taste\",\n        \"password\": \"$2a$10$bTOHIFkWWdYGrvSFUPn1rej19iG1o/EmnNa2bYjTiz9CPqxQLj8JO\",\n        \"__v\": 0,\n        \"parkStatment\": true,\n        \"textAddress\": \"near Science Gallery\"\n    }\n}"
+				},
+				{
+					"name": "ERROR cannot upate location by wrong vendorID",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"location\": [-37.79, 144.95],\n    \"textAddress\": \"near Melborune Central\",\n    \"parkStatment\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseURL}}/vendor/park/{{exampleWrongVendorID}}",
+							"protocol": "http",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"vendor",
+								"park",
+								"{{exampleWrongVendorID}}"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "120"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"78-X12dd/QFmKxSEZ4F8vfO1LnVtjM\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 22 Apr 2021 08:45:39 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": false,\n    \"err\": {\n        \"stringValue\": \"\\\"sdfhg12345\\\"\",\n        \"kind\": \"ObjectId\",\n        \"value\": \"sdfhg12345\",\n        \"path\": \"_id\",\n        \"reason\": {}\n    }\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "lesillage.herokuapp.com"
+		},
+		{
+			"key": "exampleVendorID",
+			"value": "6080c9ae2a2dc606befa7291"
+		},
+		{
+			"key": "exampleWrongVendorID",
+			"value": "sdfhg12345"
+		}
+	]
+}
