@@ -131,14 +131,14 @@ function Header(props) {
     return(
             <Navbar collapseOnSelect id="nav" expand="md">
                 <Navbar.Brand>
-                <OverlayTrigger
-                    placement = "right"
-                    delay = {{show:250, hide: 300}}
-                    overlay = {renderTooltip} >
-                    <Button variant="outline-light" size="" onClick={goHomePage}>
-                        <img alt="" src="/coffee-truck.png" width="70" height="50" className="d-inline-block align-top"/>
-                    </Button>
-                </OverlayTrigger>
+                <ButtonGroup>
+                <Button variant="outline-light" size="" onClick = {()=>history.goBack()}>
+                    <img alt="" src="/back.svg" width="30" height="50"/>
+                </Button>
+                <Button variant="outline-light" size="" onClick={goHomePage}>
+                    <img alt="" src="/coffee-truck.png" width="70" height="50" className="d-inline-block align-top"/>
+                </Button>
+                </ButtonGroup>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="navbar navbar-expand-lg navbar-light bg-light" className="justify-content-end" >

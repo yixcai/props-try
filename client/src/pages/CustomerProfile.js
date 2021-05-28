@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Button, Form, Input, Divider, Typography, message } from 'antd';
+import { Button, Form, Input, Divider, Typography, message, BackTop } from 'antd';
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import axios from '../commons/axios.js';
 import Header from '../components/header.js';
@@ -34,7 +34,6 @@ export default function CustomerProfile(props) {
     return (
         <>
             <Header customer={props.location.state.customer}
-                    password={props.location.state.password}
                     path = {"/"}/>
             <div id="profile" >
                 <Form form={form} layout="vertical">
