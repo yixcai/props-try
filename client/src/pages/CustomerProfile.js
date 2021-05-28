@@ -55,7 +55,7 @@ export default function CustomerProfile(props) {
                         </Link> to change password
                     </Divider>
                     <Form.Item label="Password">
-                        <Input placeholder="email" 
+                        <Input placeholder="password" 
                             type = "password"
                             defaultValue={props.location.state.password}
                             disabled={disable}
