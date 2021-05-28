@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from "../commons/axios";
 import URLs from "../url";
 import io from "socket.io-client";
-import{Empty, message} from 'antd';
+import{Empty, message,Card} from 'antd';
 import { Component } from 'react'
 import OrderBrief from './OrderBrief.js';
 
@@ -34,9 +34,11 @@ function Orders(props){
 
     const renderOrders = orders.map((order)=>{
         return(
-            <OrderBrief
-                key = {order._id}
-                order = {order}/>
+            <Card>
+                <OrderBrief
+                    key = {order._id}
+                    order = {order}/>
+            </Card>
         )
     })
 

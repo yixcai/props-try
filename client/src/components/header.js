@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button,Navbar, Nav,Modal,Form,DropdownButton,ButtonGroup,Dropdown,OverlayTrigger,Tooltip, Container} from 'react-bootstrap';
 import {useState, useEffect  } from 'react';
-import {Divider, Drawer,message,Card,InputNumber} from 'antd';
+import {Divider, Drawer,message,Card,InputNumber,Typography} from 'antd';
 import OrderList from '../components/OrderList.js';
 import axios from "../commons/axios"
 import {useHistory} from 'react-router-dom';
@@ -24,6 +24,11 @@ function Header(props) {
     const[order, setOrder] = useState([]);
     const [target, setTarget] = useState('');
     const [ordershow,setOrdershow] = useState([]);
+    const [givenName,setGivenName] = useState('');
+    const [familyName,setFamilyName] = useState('');
+    const [registerShow,setRegisterShow] = useState(false);
+    const registerOpen  = () => setRegisterShow(true);
+    const registerClose  = () => setRegisterShow(false);
 
     const renderTooltip = (props) => (
         <Tooltip id = 'button-tooltip' {...props}>
@@ -52,9 +57,32 @@ function Header(props) {
           }
         }).catch(error =>{
           console.log(error)
+          message.error("Please enter your account")
+          setShow(false);
           })
       }
-    
+
+    const onRegister = () => {
+        axios.post('/customer/register/', {
+            "givenName": givenName,
+            "familyName": familyName,
+            "email": email,
+            "password": password
+        }).then((response) => {
+            if (response.data.customer){
+                message.success("customer details registered succsess, please login with your account")
+                setRegisterShow(false);
+            }else{
+                message.error(response.data.message)
+            }
+        })
+    }
+
+    const openRegister = () =>{
+        setShow(false);
+        setRegisterShow(true);
+    }
+
     const onLogout = () => {
         history.push(props.path,{
             vendors: props.vendors,
@@ -70,6 +98,7 @@ function Header(props) {
             password: props.password,
         })
     }
+
 
     useEffect(() => {
         if(props.customer){         
@@ -141,6 +170,46 @@ function Header(props) {
                             <Form.Control type="email" placeholder="Enter email"
                             onChange={e => setEmail(e.target.value)} />
                             <Form.Text className="text-muted">
+                            </Form.Text>  
+                        </Form.Group>
+                        <Form.Group controlId="formBasicPassword">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" placeholder="Password"
+                            onChange={e => setPassword(e.target.value)} /> 
+                        </Form.Group>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="link" onClick={openRegister}>
+                            I don't have a account yet
+                        </Button>
+                        <Button variant="outline-secondary" onClick={onLogin}>
+                        Login
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+
+                <Modal show={registerShow} onHide={registerClose} style={{ marginTop: '2vh' }} >
+                    <Modal.Header closeButton>
+                        <Modal.Title>Customer register</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                        <Form.Group controlId="formBasicEmail">
+                            <Form.Label>Given name</Form.Label>
+                            <Form.Control type="email" placeholder="Enter email"
+                            onChange={e => setGivenName(e.target.value)} /> 
+                        </Form.Group>
+                        <Form.Group controlId="formBasicEmail">
+                            <Form.Label>Family name</Form.Label>
+                            <Form.Control type="email" placeholder="Enter email"
+                            onChange={e => setFamilyName(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group controlId="formBasicEmail">
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control type="email" placeholder="Enter email"
+                            onChange={e => setEmail(e.target.value)} />
+                            <Form.Text className="text-muted">
                             We'll never share your email with anyone else.
                             </Form.Text>  
                         </Form.Group>
@@ -152,11 +221,8 @@ function Header(props) {
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
+                        <Button variant="outline-secondary" onClick={onRegister}>
                         register
-                        </Button>
-                        <Button variant="primary" onClick={onLogin}>
-                        Login
                         </Button>
                     </Modal.Footer>
                 </Modal> 

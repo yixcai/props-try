@@ -35,8 +35,8 @@ export default function LeafletMap(props) {
     )
 
     const customerLocated = [<Marker position={props.center} iconUrl = {"https://static.thenounproject.com/png/780108-200.png"}>
-    <Popup>Your location is here </Popup>
-</Marker>]
+                                <Popup>{'Your location is here,' + props.center} </Popup>
+                            </Marker>]
 
     const renderVendorMarker = (
         <Marker
@@ -47,7 +47,6 @@ export default function LeafletMap(props) {
     )
 
     const onPark = () =>{
-        console.log(props.vendor.id, position.lat, position.lng)
         axios.post('/vendor/park/' + props.vendor.id, {
             location: [position.lat, position.lng],
             textAddress: address

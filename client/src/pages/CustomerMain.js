@@ -95,7 +95,6 @@ export default function CustomerMain(props) {
                     vendors = {props.location.state.vendors}
                     center = {props.location.state.position}
                     path = {props.location.pathname}
-                    password = {props.location.state.password}
                     vendor={props.location.state.vendor.id}/>
             <Layout>
                 <Navbar>
@@ -104,7 +103,7 @@ export default function CustomerMain(props) {
                     </Navbar.Collapse>
                     <Nav class="justify-content-end">
                     <Button icon={<ShoppingCartOutlined />}
-                            onClick={handleModalShow} size="large">Start order</Button>
+                            onClick={handleModalShow} size="large">Order here</Button>
                         <Modal show={modalVisible} onHide={handleModalClose}>
                             <Modal.Header closeButton>
                                 <Modal.Title>My cart</Modal.Title>

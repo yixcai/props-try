@@ -12,13 +12,11 @@ export default function CustomerMain(props) {
             <Header customer ={props.location.state.customer}
                     vendors = {props.location.state.vendors}
                     center = {props.location.state.position}
-                    path = {props.location.pathname}
-                    password = {props.location.state.password}/>
+                    path = {props.location.pathname}/>
                     
             <LeafletMap center = {props.location.state.position}
                         vendors = {props.location.state.vendors}
-                        customer = {props.location.state.customer}
-                        password = {props.location.state.password} />
+                        customer = {props.location.state.customer}/>
 
             <Footer/>
         </>

@@ -27,11 +27,6 @@ function App(props) {
       })
     },[lat,lng])
   
-    const renderTooltip = (props) => (
-      <Tooltip id = 'button-tooltip' {...props}>
-        feature still in progess
-      </Tooltip>
-    );
 
     const onSkip = () =>{
       props.history.push('/customer',{
