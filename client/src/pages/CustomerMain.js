@@ -67,7 +67,7 @@ export default function CustomerMain(props) {
             // post the order info 
             axios.post('/order/create',{
                 customer: props.location.state.customer.id,
-                vendor:props.location.state.vendor.id, 
+                vendor: props.location.state.vendor.id, 
                 snacks: submitOrder
             }).then(response =>{
                 if(response.data.success){
@@ -82,14 +82,9 @@ export default function CustomerMain(props) {
 }
 
     // can check processing order that ordered by this customerID
-    useEffect(() => {
-        if(props.location.state.customer){
-        }
-        axios.get('/snack').then(response => {
-            setSnacks(response.data.snacks)
-        })
-        
-    },[props.location.state.customer]); 
+    axios.get('/snack').then(response => {
+        setSnacks(response.data.snacks)
+    })
     
 
 
@@ -100,7 +95,8 @@ export default function CustomerMain(props) {
                     vendors = {props.location.state.vendors}
                     center = {props.location.state.position}
                     path = {props.location.pathname}
-                    password = {props.location.state.password}/>
+                    password = {props.location.state.password}
+                    vendor={props.location.state.vendor.id}/>
             <Layout>
                 <Navbar>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />

@@ -76,6 +76,10 @@ function App2(props) {
     });
   }
 
+  const onGoback = () =>{
+    props.history.push('/')
+  }
+
 
   return (
     <div id="appMain" style={{ marginTop: '10%'}}>
@@ -98,7 +102,10 @@ function App2(props) {
             <Form.Control type="password" placeholder="Password"
               onChange={e => setPassword(e.target.value)} /> 
           </Form.Group>
-          <Button variant="dark" onClick={onVendorLogin}>
+          <Button variant="outline-dark"  onClick={onGoback}>
+            Go back
+          </Button>
+          <Button variant="dark"  onClick={onVendorLogin}  style={{ float: "right"}}>
             Login
           </Button>
         </Form>

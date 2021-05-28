@@ -197,7 +197,7 @@ export default class   extends React.Component {
 
 
     renderActions = () => {
-        if(window.location.pathname ==="/orders"){
+        if(window.location.pathname === "/orders"){
             return(
             [
                     <EyeOutlined onClick = {()=> this.handleShow()} />,
@@ -325,6 +325,7 @@ export default class   extends React.Component {
     }
 
     render() {
+        console.log(this.props);
         return (
             <>
                 <Modal show={this.state.modalVisible} onHide={() => this.handleClose()}>

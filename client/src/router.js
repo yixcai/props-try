@@ -8,7 +8,7 @@ import CustomerRate from './pages/CustomerRate.js';
 import CustomerProfile from './pages/CustomerProfile.js';
 import VendorPark from './pages/VendorPark.js';
 import VendorOrders from './pages/VendorOrders.js';
-import App from './pages/App.js';
+import VendorHome from './pages/VendorHome';
 
 class Router extends React.Component{
     render() {
@@ -23,7 +23,7 @@ class Router extends React.Component{
                     <Route path="/profile" exact component={CustomerProfile}></Route>
                     <Route path="/vendor" exact component={VendorPark}></Route>
                     <Route path="/orders" exact component={VendorOrders}></Route>
-                    <Route path="/vendorHome" exact component={App}></Route>
+                    <Route path="/vendorHome" exact component={VendorHome}></Route>
 
                 </Switch>
             </BrowserRouter>

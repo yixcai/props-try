@@ -32,7 +32,6 @@ function Orders(props){
         fetchData()
     },[id, orders, props.target, props.status])
 
-
     const renderOrders = orders.map((order)=>{
         return(
             <OrderBrief
@@ -91,10 +90,7 @@ export default class OrderList extends Component {
     render() {
         return (
             <div style= {{height: '100vh', width:'100%', margin:'auto', 'marginTop':'5%'}}>
-                <Orders id={this.props.id} 
-                orders = {this.state.orders} 
-                target={this.props.target} 
-                status={this.props.status} />
+                <Orders id={this.props.id} orders = {this.state.orders} target={this.props.target} status={this.props.status} />
             </div>
         )
     }

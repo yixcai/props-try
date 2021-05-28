@@ -122,9 +122,10 @@ function Header(props) {
                         {bottons}
                     </nav>
                 </Navbar.Collapse>
-                <Drawer id="history" visible ={drawerVisible}
+                <Drawer visible ={drawerVisible}
                     closable = {true}
-                    onClose = {handleDrawerClose}>
+                    onClose = {handleDrawerClose}
+                    width={"30%"}>
                     <h2>All Orders</h2><Divider/>
                     {ordershow}
                 </Drawer>
