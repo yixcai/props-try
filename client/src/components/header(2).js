@@ -1,11 +1,10 @@
 import React from 'react';
-import {Button,Navbar, Nav,Modal,Form,DropdownButton,ButtonGroup,Dropdown,OverlayTrigger,Tooltip, Container} from 'react-bootstrap';
+import {Button,Navbar, Nav,Modal,Form,DropdownButton,ButtonGroup,Dropdown,OverlayTrigger,Tooltip} from 'react-bootstrap';
 import {useState, useEffect  } from 'react';
 import {Divider, Drawer,message,Card,InputNumber} from 'antd';
 import OrderList from '../components/OrderList.js';
 import axios from "../commons/axios"
 import {useHistory} from 'react-router-dom';
-import '../pages/main.css';
 
 
 
@@ -24,6 +23,7 @@ function Header(props) {
     const[order, setOrder] = useState([]);
     const [target, setTarget] = useState('');
     const [ordershow,setOrdershow] = useState([]);
+
 
     const renderTooltip = (props) => (
         <Tooltip id = 'button-tooltip' {...props}>
@@ -44,6 +44,7 @@ function Header(props) {
               vendors: props.vendors,
               position: props.center,
               vendor: props.vendor,
+              password: password,
             });
             message.success("Login succsess!")
             setShow(false);
@@ -51,7 +52,9 @@ function Header(props) {
             message.error("we dont know this account")
           }
         }).catch(error =>{
-          console.log(error)
+          console.log(error);
+          message.error("please try again");
+          setShow(false)
           })
       }
     
@@ -64,13 +67,16 @@ function Header(props) {
         message.success("Your account has been successfully logout")
     }
 
+    const onRegister = () =>{
+        
+    }
+
     const onProfile = () => {
         history.push('/profile',{
             customer: props.customer,
-            password: props.password,
         })
     }
-
+console.log(props.customer)
     useEffect(() => {
         if(props.customer){         
             axios.get('/order?customer=' + props.customer.id).then(response => {
@@ -78,10 +84,9 @@ function Header(props) {
             })
             setTarget('customer');
             setTitle("Welcome to LE Sillage, "+ props.customer.givenName);
-            setBottons([<Nav class="justify-content-end" >
-                            <Button id="marginbtn"variant="outline-light"  key = "1" 
-                                onClick = {handleDrawerShow}>Order History</Button>
-                            <DropdownButton as={ButtonGroup} title="My Account" variant="outline-light" >
+            setBottons([<Nav class="justify-content-end">
+                            <Button variant="outline-light"  key = "1" onClick = {handleDrawerShow}>Order History</Button>
+                            <DropdownButton as={ButtonGroup} title="My Account" variant="outline-light">
                                 <Dropdown.Item onClick={onProfile}>Profile</Dropdown.Item>
                                 <Dropdown.Item onClick={onLogout} >Logout</Dropdown.Item>
                             </DropdownButton>
@@ -93,15 +98,14 @@ function Header(props) {
         else{
             setTitle("Welcome to LE Sillage")
             setBottons([<Nav class="justify-content-end">
-                            <Button variant="outline-light" size = "lg" onClick = {handleShow}>Login</Button>
+                            <Button variant="outline-light" size = "lg" onClick = {handleShow}>Login/register</Button>
                         </Nav>])
 
         }
     }, [props.customer,props.location,props.vendor]);
     
     return(
-            <Navbar collapseOnSelect id="nav" expand="md">
-                <Navbar.Brand>
+            <Navbar id="nav" >
                 <OverlayTrigger
                     placement = "right"
                     delay = {{show:250, hide: 300}}
@@ -110,26 +114,24 @@ function Header(props) {
                         <img alt="" src="/coffee-truck.png" width="70" height="50" className="d-inline-block align-top"/>
                     </Button>
                 </OverlayTrigger>
-                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="navbar navbar-expand-lg navbar-light bg-light" className="justify-content-end" >
-                    <nav class="navbar navbar-dark">
-                        <span class="navbar-brand">
-                            {title}
-                        </span>
-                    </nav>
-                    <nav>
-                        {bottons}
-                    </nav>
+                <Navbar.Collapse id="navbar navbar-expand-lg navbar-light bg-light">
+                <nav class="navbar navbar-dark">
+                    <span class="navbar-brand">
+                        {title}
+                    </span>
+                </nav>
                 </Navbar.Collapse>
-                <Drawer id="history" visible ={drawerVisible}
+                {bottons}
+                <Drawer visible ={drawerVisible}
                     closable = {true}
-                    onClose = {handleDrawerClose}>
+                    onClose = {handleDrawerClose}
+                    width={"35%"}>
                     <h2>All Orders</h2><Divider/>
                     {ordershow}
                 </Drawer>
 
-                <Modal show={show} onHide={handleClose} style={{ marginTop: '2vh' }} >
+                <Modal id ="login" show={show} onHide={handleClose} style={{ marginTop: '2vh' }} >
                     <Modal.Header closeButton>
                         <Modal.Title>Customer Login</Modal.Title>
                     </Modal.Header>
@@ -152,13 +154,16 @@ function Header(props) {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
+                        close
+                        </Button>
+                        <Button variant="secondary" onClick={onRegister}>
                         register
                         </Button>
                         <Button variant="primary" onClick={onLogin}>
                         Login
                         </Button>
                     </Modal.Footer>
-                </Modal> 
+                </Modal>    
             </Navbar>         
     )
 }

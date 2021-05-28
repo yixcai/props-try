@@ -17,7 +17,8 @@ export default function CustomerMain(props) {
                     
             <LeafletMap center = {props.location.state.position}
                         vendors = {props.location.state.vendors}
-                        customer = {props.location.state.customer} />
+                        customer = {props.location.state.customer}
+                        password = {props.location.state.password} />
 
             <Footer/>
         </>

@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import {useHistory} from 'react-router-dom';
-import {Divider, Drawer, PageHeader} from 'antd';
-import {Button} from 'react-bootstrap';
+import {Divider, Drawer, PageHeader,message} from 'antd';
+import {Button, Navbar, NavProps} from 'react-bootstrap';
 import OrderList from '../components/OrderList.js';
+import '../pages/main.css';
 
 export default function Header(props) {
 
@@ -16,50 +17,24 @@ export default function Header(props) {
     const [options, setOptions] = useState([]);
     const [target, setTarget] = useState('');
 
-
-
-    useEffect(() => {
-        if (history.location.pathname === "/customer"){
-            setTitle('Welcome ' + props.customer.givenName)
-            setTarget('customer');
-            setOptions([<Button variant = "outline-dark" key = "0"
-                onClick = {()=> {
-                    history.push('/profile',{
-                        customer:props.customer,
-                        orders: props.orders,
-                        password: props.password
-                    });
-                }}>Profile</Button>,
-            <Button variant = "outline-dark" key = "1" onClick = {handleDrawerShow}>See Orders</Button>])
-        }else if (history.location.pathname === "/profile"){
-            setTitle('welcome to your profile setting')
-            setOptions([
-                <Button variant = "outline-primary" key = "1" onClick = {()=>history.goBack()}>Back</Button>
-            ])
-        }else if(history.location.pathname ==='/vendor'){
-            setTitle('Welcome back ' + props.vendor.userName)
-        }else{
-            setTitle('Welcome to orders list')
-        }
-    }, []); 
+    const onLogout = () => {
+        history.push('vendorHome')
+        message.success("Your account has been successfully logout")
+    }
 
 
     return (
-        <div>
-            <PageHeader title = {title}
-                extra = {options}>
-            </PageHeader>
-            <Drawer visible ={drawerVisible}
-                closable = {true}
-                onClose = {handleDrawerClose}
-                width={"60vw"}>
-                All Orders
-                <Divider/>
-                <OrderList id = {props.id}
-                            target = {target} 
-                            orders={props.orders} 
-                            />
-            </Drawer>
-        </div>
+        <Navbar id="nav" expand="md" >
+            <img alt="" src="/coffee-truck.png" id="icon" className="d-inline-block align-top"/>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-dark">
+            <span class="navbar-brand">
+                {'Welcome back, ' + props.vendor.userName +' !'}
+            </span>
+        </nav>
+        </Navbar.Collapse>
+                <Button variant="outline-light" onClick={onLogout} >Logout</Button>
+        </Navbar>
     )
 }

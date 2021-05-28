@@ -1,10 +1,8 @@
 import React, {useState, useEffect} from 'react'
-
-import {Row, Button} from 'antd'
-
+import {Row,Radio} from 'antd';
 import OrderList  from '../components/OrderList';
 import Header from '../components/vendorHeader';
-
+import './main.css';
 export default function VendorOrders(props) {
 
 
@@ -21,12 +19,15 @@ export default function VendorOrders(props) {
     return (
         <div>
             <Header vendor = {props.location.state.vendor} />
-            <div style = {{marginLeft:'3vw', alignItems:'center'}}>
-                <Row gutter={6}>
-                    <Button onClick={()=> setStatus('&status=outstanding')}>Outstanding</Button>
-                    <Button onClick={()=> setStatus('&status=fulfilled')} style={{marginLeft:'1vw'}}>Fulfilled</Button>
-                    <Button onClick={()=> setStatus('&status=completed')} style={{marginLeft:'1vw'}}>Completed</Button>
-                    <Button onClick={()=> setStatus('&status=cancelled')} style={{marginLeft:'1vw'}}>Cancelled</Button>
+            <div style = {{width:'80vw', alignItems:'center'}}>
+                <Row id="options">
+                <Radio.Group>
+                    <Radio.Button onClick={()=> setStatus('&status=outstanding')} style={{color:'black'}}> Outstanding</Radio.Button>
+                    <Radio.Button onClick={()=> setStatus('&status=fulfilled')} style={{color:'black'}}> Fulfilled</Radio.Button>
+                    <Radio.Button onClick={()=> setStatus('&status=completed')} style={{color:'black'}}> Completed</Radio.Button>
+                    <Radio.Button onClick={()=> setStatus('&status=cancelled')} style={{color:'black'}}> Cancelled</Radio.Button>
+                    <Radio.Button onClick={()=> setStatus('')} style={{color:'black'}}> All Orders</Radio.Button>
+                </Radio.Group>
                 </Row>
 
             </div>

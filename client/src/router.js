@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from  'react-router-dom';
-import MainHome from './pages/MainHome.js';
+import MainHome from './pages/LoginPage';
 import CustomerHomePage from './pages/homepage.js';
 import CustomerMain from './pages/CustomerMain.js';
 import CustomerHome from './pages/CustomerApp';

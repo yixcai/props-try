@@ -3,7 +3,8 @@ import { Button, Form, Input, Divider, Typography, message } from 'antd';
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import axios from '../commons/axios.js';
 import Header from '../components/header.js';
-import './main.css';
+import { set } from 'mongoose';
+
 export default function CustomerProfile(props) {
 
     const [form] = Form.useForm();
@@ -26,17 +27,24 @@ export default function CustomerProfile(props) {
             "familyName": familyName,
             "email": email,
             "password": password
-        }).catch(error =>{
+        }).then((response,err) => {
+            if (response.data.success){
+                message.success("Customer details update succsess!")
+            }else{
+                message.error(response.data.error)
+            }
+        }
+        ).catch(error =>{
             message.error("Another customer already registered that email")
         })
     }
-    
+    console.log(props)
     return (
         <>
             <Header customer={props.location.state.customer}
                     password={props.location.state.password}
                     path = {"/"}/>
-            <div id="profile" >
+            <div style={{width: '40%', margin: 'auto'}}>
                 <Form form={form} layout="vertical">
                     <Form.Item label="Given Name">
                         <Input placeholder="given name" defaultValue={givenName}

@@ -7,29 +7,17 @@ import { message, Typography } from 'antd';
 import 'antd/dist/antd.css'
 import e from 'cors';
 
+
 const{Link}=Typography;
 
 function App2(props) {
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = (e) => {
-    if (e.target.outerText === "Customer"){
-      setModal('customer')
-    }else{
-      setModal('vendor')
-    }
-    setShow(true)
-  };
-
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userName, setName] = useState('');
 
   const[lat,setLat] = useState('');
   const[lng,setLng] = useState('');
   const[vendors,setVendors] = useState([]);
-  const[modal,setModal] = useState([]);
 
   // const renderTooltip = (props) => (
   //   <Tooltip id = 'button-tooltip' {...props}>
@@ -62,9 +50,8 @@ function App2(props) {
         message.error(response.data.error)
       }
     }).catch(error =>{
-      setShow(false);
       console.log(error.response.data.error)
-      message.error(error.response.data.error)
+      message.error("please use correct account name and password")
       })
   }
 
@@ -78,11 +65,11 @@ function App2(props) {
 
 
   return (
-    <div id="appMain" style={{ marginTop: '10%'}}>
+    <div style={{width: '40%', margin :'auto', marginTop: '10%'}}>
       <Jumbotron style = {{background: "white"}}>
         <h1>
         <img alt="" src="/coffee-truck.png" width="70" height="50" className="d-inline-block align-top"/>
-        &nbsp; For Vendor Login
+        &nbsp; Please login your vendor account
         </h1>
         <Form>
           <Form.Group controlId="formBasic">

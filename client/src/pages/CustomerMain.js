@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
-import {Button, Navbar, Nav,  Modal} from 'react-bootstrap';
-import {Divider, Drawer, Row, Col, Card, InputNumber} from 'antd';
+import { Navbar, Nav,  Modal} from 'react-bootstrap';
+import {Divider,Button, Drawer, Row, Col, Card, InputNumber} from 'antd';
+import { ShoppingCartOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import '../pages/main.css';
 
@@ -106,8 +107,8 @@ export default function CustomerMain(props) {
                     <Navbar.Collapse id="basic-navbar-nav">
                     </Navbar.Collapse>
                     <Nav class="justify-content-end">
-                    <Button variant="outline-dark" size="lg"
-                            onClick={handleModalShow}>My Cart</Button>
+                    <Button icon={<ShoppingCartOutlined />}
+                            onClick={handleModalShow} size="large">Start order</Button>
                         <Modal show={modalVisible} onHide={handleModalClose}>
                             <Modal.Header closeButton>
                                 <Modal.Title>My cart</Modal.Title>

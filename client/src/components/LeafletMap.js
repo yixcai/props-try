@@ -19,7 +19,6 @@ export default function LeafletMap(props) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [address, setAddress] = useState('');
-    const [customerLocated,setCustomerLocated] = useState([])
 
 
     const eventHandlers = useMemo(
@@ -34,6 +33,10 @@ export default function LeafletMap(props) {
         }),
         [],
     )
+
+    const customerLocated = [<Marker position={props.center} iconUrl = {"https://static.thenounproject.com/png/780108-200.png"}>
+    <Popup>Your location is here </Popup>
+</Marker>]
 
     const renderVendorMarker = (
         <Marker
@@ -58,19 +61,11 @@ export default function LeafletMap(props) {
     const Log = (vendor) => {
         history.push('/menue',{
         customer : props.customer,
-        vendor: vendor
+        vendor: vendor,
     });}
 
-    useEffect(() => {
-        if(history.location.pathname !== '/vendor'){
-            setCustomerLocated([<Marker position={props.center} iconUrl = {"https://static.thenounproject.com/png/780108-200.png"}>
-                                    <Popup>Your location is here </Popup>
-                                </Marker>])
-        }
-    })
-    console.log(history)
         return (
-        <><Modal show = {show} onHide = {handleClose} style = {{marginTop: '2vh'}}>
+        <><Modal id ="vendor park" show = {show} onHide = {handleClose} style = {{marginTop: '2vh'}}>
                 <Modal.Header closeButton>
                     <Modal.Title>Vendor Park</Modal.Title>
                 </Modal.Header>
@@ -99,7 +94,7 @@ export default function LeafletMap(props) {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'                  
                 />
-                {customerLocated}
+                {(history.location.pathname !=='/vendor') ? customerLocated : <></>}
                 {
                     props.vendors.map((vendor) => (
                         <Marker position={vendor.location} icon = {vendorIcon}>
