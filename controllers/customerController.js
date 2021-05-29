@@ -6,10 +6,15 @@ var Customer = require('../models/customer');
  * (POST) http://localhost:5000/customer/register
  */
 exports.customerNewUserPost = function (req, res) {
+    var regularExpression = '/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/';
     const { familyName, givenName, email, password} = req.body;
    
     Customer.findOne( {email: email} ).then((customer) => {
-        if(customer) {
+        var regularExpression = /^(?=.*[0-9])[a-zA-Z0-9]{8,16}$/;
+        if(!regularExpression.test(password)){
+            res.status(404).json({error: 'password no pass'})
+        }
+        else if(customer) {
             res.status(409).json({error: 'Email already registered!'})
             //When email already registered, report error 
         }else{
@@ -80,7 +85,10 @@ exports.customerUpdatePost = function(req, res){
                 throw (err);
             }
             Customer.findOne({email:req.body.email}, function(err, duplicateCustomer){
-                if(duplicateCustomer && duplicateCustomer._id != req.params.id){
+                var regularExpression = /^(?=.*[0-9])[a-zA-Z0-9]{8,16}$/;
+                if(!regularExpression.test(req.body.password)){
+                    res.status(409).json({error: 'password no pass'})}
+                else if(duplicateCustomer && duplicateCustomer._id != req.params.id){
                     if(duplicateCustomer._id != req.params.id){
                         console.log(duplicateCustomer._id)
                         console.log(req.params.id)

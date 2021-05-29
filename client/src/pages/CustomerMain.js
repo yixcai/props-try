@@ -93,7 +93,6 @@ export default function CustomerMain(props) {
     })
     
 
-    console.log(props.location.state.vendor)
     //front end design
     return (
         <>
