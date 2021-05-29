@@ -80,7 +80,7 @@ exports.customerUpdatePost = function(req, res){
                 throw (err);
             }
             Customer.findOne({email:req.body.email}, function(err, duplicateCustomer){
-                if(duplicateCustomer){
+                if(duplicateCustomer && duplicateCustomer._id != req.params.id){
                     if(duplicateCustomer._id != req.params.id){
                         console.log(duplicateCustomer._id)
                         console.log(req.params.id)
