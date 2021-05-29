@@ -65,7 +65,7 @@ export default function CustomerMain(props) {
             }
         }
 
-        if (submitOrder.length ===0){
+        if (submitOrder.length ==0){
             setModalVisible(false)
             message.error("Sorry, you cannot enter empty snacks~")
         }else{
