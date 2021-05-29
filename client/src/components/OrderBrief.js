@@ -325,7 +325,6 @@ export default class   extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <>
                 <Modal show={this.state.modalVisible} onHide={() => this.handleClose()}>
@@ -337,7 +336,7 @@ export default class   extends React.Component {
                         <p>Snacks: {this.props.order.snacks.map((snack) => <li key={snack.name}>{snack.name} - qty: {snack.qty}</li>)}</p>
                         {(this.props.order.discount) ? <p>Total: {this.props.order.total * 1.25} *0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>}
                         {(this.props.order.rating) ? <><p>Rating: </p><Rate disabled value = {this.props.order.rating} /></> : <></>}
-                        {(this.props.order.comment) ? <><p>Comment: </p><>{this.props.order.rating} </></> : <></>}
+                        {(this.props.order.comment) ? <><p>Comment: </p><>{this.props.order.comment} </></> : <></>}
                     </Modal.Body>
                 </Modal>
 
