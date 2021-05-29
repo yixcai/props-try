@@ -26,10 +26,17 @@ export default function CustomerProfile(props) {
             "familyName": familyName,
             "email": email,
             "password": password
+        }).then((response,err) => {
+            if (response.data.success){
+                message.success("customer details update succsess")
+            }else{
+                message.error(response.data.error)
+            }
         }).catch(error =>{
-            message.error("Another customer already registered that email")
+            message.error("another customer already registered that email")
         })
     }
+    console.log(props)
     
     return (
         <>
