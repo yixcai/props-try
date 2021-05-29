@@ -52,14 +52,19 @@ export default function CustomerMain(props) {
         }else{
         // change the order format and store in the db "orders" cluster
         var submitOrder = []
+        var total = 0
+
         for (var i = 0; i < order.length; i++){
+            let update = total + snacks[i].price * order[i]
+            total = update
             if(Number.isFinite(order[i])){
                 submitOrder.push({
                     "name":snacks[i].name,
-                    "qty":order[i]
+                    "qty": order[i]
                 })
             }
         }
+
         if (submitOrder.length ===0){
             setModalVisible(false)
             message.error("Sorry, you cannot enter empty snacks~")
@@ -67,8 +72,9 @@ export default function CustomerMain(props) {
             // post the order info 
             axios.post('/order/create',{
                 customer: props.location.state.customer.id,
-                vendor: props.location.state.vendor.id, 
-                snacks: submitOrder
+                vendor: props.location.state.vendor, 
+                snacks: submitOrder,
+                total : total
             }).then(response =>{
                 if(response.data.success){
                     message.success("Congrats! Your order is received and you can pick up later!")
@@ -87,7 +93,7 @@ export default function CustomerMain(props) {
     })
     
 
-
+    
     //front end design
     return (
         <>
