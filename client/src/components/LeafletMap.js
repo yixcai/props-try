@@ -60,7 +60,7 @@ export default function LeafletMap(props) {
     const Log = (vendor) => {
         history.push('/menue',{
         customer : props.customer,
-        vendor: vendor,
+        vendor: vendor
     });}
 
         return (
@@ -102,7 +102,7 @@ export default function LeafletMap(props) {
                                 vendor.location[0] - props.center[0],
                                 vendor.location[1] - props.center[1]
                                  ))*11).toFixed(2)+"km"}
-                            <Button  variant="outline-dark" onClick={() =>Log(vendor)}>
+                            <Button  variant="outline-dark" onClick={() =>Log(vendor.id)}>
                                 Order from this Vendor
                             </Button>
                             </Popup>

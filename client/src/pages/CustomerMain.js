@@ -46,9 +46,9 @@ export default function CustomerMain(props) {
             message.error("Sorry, you have to login before ordering")
             setModalVisible(false);
             history.push(props.location.pathname,{
-                customer: props.location.state.customer
+                customer: props.location.state.customer,
+                vendor: props.location.state.vendor
             })
-
         }else{
         // change the order format and store in the db "orders" cluster
         var submitOrder = []
@@ -93,7 +93,7 @@ export default function CustomerMain(props) {
     })
     
 
-    
+    console.log(props.location.state.vendor)
     //front end design
     return (
         <>
