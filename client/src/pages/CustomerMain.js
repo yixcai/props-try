@@ -101,7 +101,7 @@ export default function CustomerMain(props) {
                     vendors = {props.location.state.vendors}
                     center = {props.location.state.position}
                     path = {props.location.pathname}
-                    vendor={props.location.state.vendor.id}/>
+                    vendor={props.location.state.vendor}/>
             <Layout>
                 <Navbar>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
