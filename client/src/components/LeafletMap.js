@@ -9,8 +9,8 @@ import {message} from 'antd';
 
 export default function LeafletMap(props) {
     const vendorIcon = new Icon({
-        iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Map_marker.svg',
-        iconSize: [30,30]
+        iconUrl: '/coffee-truck.png',
+        iconSize: ["auto",30]
     })
 
     const [position, setPosition] = useState(props.center);

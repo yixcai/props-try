@@ -64,7 +64,7 @@ export default function CustomerProfile(props) {
                     <Form.Item label="Password">
                         <Input placeholder="password" 
                             type = "password"
-                            defaultValue={props.location.state.password}
+                            defaultValue={props.location.state.customer.password}
                             disabled={disable}
                             onChange={e => setPassword(e.target.value)} />
                     </Form.Item>

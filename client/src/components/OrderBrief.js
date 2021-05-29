@@ -325,7 +325,7 @@ export default class   extends React.Component {
     }
 
     render() {
-        
+
         return (
             <>
                 <Modal show={this.state.modalVisible} onHide={() => this.handleClose()}>
