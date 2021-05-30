@@ -49,8 +49,7 @@ export default function CustomerMain(props) {
         var total = 0
 
         for (var i = 0; i < order.length; i++){
-            let update = total + snacks[i].price * order[i]
-            total = update
+            total = total + snacks[i].price * order[i]
             if(Number.isFinite(order[i])){
                 submitOrder.push({
                     "name":snacks[i].name,
@@ -144,6 +143,7 @@ export default function CustomerMain(props) {
                                 cover={<img alt="" src={snack.image} ></img>}
                             >
                                 <Meta title={snack.name + "    " + snack.price}/>
+                                <Divider style={{borderWidth:5, borderColor: '#593e34' }} plain></Divider>
                                 <Meta description={snack.detail} />
                             </Card>
                         </Col>

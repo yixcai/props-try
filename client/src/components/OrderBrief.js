@@ -222,14 +222,6 @@ export default class extends React.Component {
                     })
                 }
             }
-            axios.post('/order/'+this.props.order._id+'/update',{
-                total: total
-            }).then(response =>{
-                if(response.data.success){
-                    message.success("price is change")
-                    this.setState({editModalVisible: false});
-                }
-            })
             if (submitOrder.length ===0){
                 this.setState({editModalVisible: false});
                 message.error("You need to enter more than one snack!")
@@ -237,12 +229,14 @@ export default class extends React.Component {
                 axios.post('/order/'+this.props.order._id+'/update',{
                     // customer:this.props.order.customer._id,
                     // vendor: this.props.order.vendor._id, //will be changed in the future
+                    total: total,
                     snacks: submitOrder,
                     status:"outstanding"
                 }).then(response =>{
                     if(response.data.success){
                         message.success("Order has been updated!")
                         this.setState({editModalVisible: false});
+                        submitOrder = []
                     }else{
                         message.error("Order updating errored!")
                     }
@@ -316,7 +310,7 @@ export default class extends React.Component {
                     <Modal.Body>
                         <p>Vendor: {this.props.order.vendor._id}</p>
                         <p>Snacks: {this.props.order.snacks.map((snack) => <li key={snack.name}>{snack.name} - qty: {snack.qty}</li>)}</p>
-                        {(this.props.order.discount) ? <p>Total: {this.props.order.total * 1.25} *0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>}
+                        {(this.props.order.discount) ? <p>Total: {(this.props.order.total * 1.25).toFixed(2)} * 0.8 = {this.props.order.total.toFixed(2)}</p> : <p>Total: {this.props.order.total}</p>} 
                         {(this.props.order.rating) ? <><p>Rating: </p><Rate disabled value = {this.props.order.rating} /></> : <></>}
                         {(this.props.order.comment) ? <><p>Comment: </p><>{this.props.order.comment} </></> : <></>}
                     </Modal.Body>
@@ -344,6 +338,7 @@ export default class extends React.Component {
                     {(this.props.order.status === "fulfilled") ? "Order is fulfilled"
                         : (this.props.order.status === "completed") ? "Order is completed"
                             : (this.props.order.status === "cancelled") ? "Order is cancelled"
+                                : (this.props.order.status === "outstanding") ? "Order is outstanding"
                                 :<CountUp updatedAt={this.props.order.updatedAt} />}
 
                 </Card>}
