@@ -1,10 +1,13 @@
-import React, {useState, useEffect} from 'react'
-import {Row,Radio} from 'antd';
+import './main.css';
 import OrderList  from '../components/OrderList';
 import Header from '../components/vendorHeader';
-import './main.css';
-export default function VendorOrders(props) {
 
+import React, {useState, useEffect} from 'react'
+import {Row} from 'antd';
+import {Button, ButtonGroup} from 'react-bootstrap'; 
+
+
+export default function VendorOrders(props) {
 
     const [target, setTarget] = useState('');
     const [status, setStatus] = useState('');
@@ -19,19 +22,20 @@ export default function VendorOrders(props) {
     return (
         <div>
             <Header vendor = {props.location.state.vendor} />
-            <div style = {{width:'80vw', alignItems:'center'}}>
+            <div style = {{background:'white',width:'80vw', alignItems:'center', marginLeft:'4.5%'}}>
                 <Row id="options">
-                <Radio.Group>
-                    <Radio.Button onClick={()=> setStatus('&status=outstanding')} style={{color:'black'}}> Outstanding</Radio.Button>
-                    <Radio.Button onClick={()=> setStatus('&status=fulfilled')} style={{color:'black'}}> Fulfilled</Radio.Button>
-                    <Radio.Button onClick={()=> setStatus('&status=completed')} style={{color:'black'}}> Completed</Radio.Button>
-                    <Radio.Button onClick={()=> setStatus('&status=cancelled')} style={{color:'black'}}> Cancelled</Radio.Button>
-                    <Radio.Button onClick={()=> setStatus('')} style={{color:'black'}}> All Orders</Radio.Button>
-                </Radio.Group>
+                    <ButtonGroup>
+                        <Button variant="outline-dark" onClick={()=> setStatus('&status=outstanding')}> Outstanding</Button>
+                        <Button variant="outline-dark" onClick={()=> setStatus('&status=fulfilled')}> Fulfilled</Button>
+                        <Button variant="outline-dark" onClick={()=> setStatus('&status=completed')}> Completed</Button>
+                        <Button variant="outline-dark" onClick={()=> setStatus('&status=cancelled')}> Cancelled</Button>
+                        <Button variant="outline-dark" onClick={()=> setStatus('')}> All Orders</Button>
+                    </ButtonGroup>
                 </Row>
-
             </div>
-            <OrderList id={props.location.state.vendor.id} target={target} status = {status} />
+            <div id="venderList">
+                <OrderList id={props.location.state.vendor.id} target={target} status = {status} />
+            </div>
         </div>
     )
 }

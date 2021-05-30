@@ -4,7 +4,7 @@ import {Icon} from "leaflet";
 import {Button,Modal,Form} from 'react-bootstrap';
 import {useHistory} from "react-router-dom";
 import axios from "../commons/axios";
-import React, {useState, useMemo,useEffect} from 'react';
+import React, {useState, useMemo} from 'react';
 import {message} from 'antd';
 
 export default function LeafletMap(props) {
@@ -72,10 +72,10 @@ export default function LeafletMap(props) {
                     <Form>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Detailed Text address</Form.Label>
-                            <Form.Control type="text" placeholder="Enter address"
+                            <Form.Control type="text" placeholder="Enter address please"
                                 onChange={e => setAddress(e.target.value)} />
                             <Form.Text className="text-muted">
-                                Plases enter the detailed address
+                                <p>Plases enter a detailed address!</p>
                             </Form.Text>  
                         </Form.Group>
                     </Form>
@@ -97,13 +97,13 @@ export default function LeafletMap(props) {
                 {
                     props.vendors.map((vendor) => (
                         <Marker position={vendor.location} icon = {vendorIcon}>
-                            <Popup > {" distance to you is: " + 
+                            <Popup >
+                            <Button  variant="outline-dark" onClick={() =>Log(vendor.id)}>
+                            {"Order here " +
                             (Math.sqrt(Math.hypot(
                                 vendor.location[0] - props.center[0],
                                 vendor.location[1] - props.center[1]
-                                 ))*11).toFixed(2)+"km"}
-                            <Button  variant="outline-dark" onClick={() =>Log(vendor.id)}>
-                                Order from this Vendor
+                                 ))*11).toFixed(2) + "km away from you"}
                             </Button>
                             </Popup>
 

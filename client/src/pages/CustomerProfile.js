@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import { Button, Form, Input, Divider, Typography, message, BackTop } from 'antd';
-import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import axios from '../commons/axios.js';
 import Header from '../components/header.js';
 import './main.css';
@@ -28,12 +27,12 @@ export default function CustomerProfile(props) {
             "password": password
         }).then((response,err) => {
             if (response.data.success){
-                message.success("customer details update succsess")
+                message.success("Your details have been updated succsessfully!")
             }else{
                 message.error(response.data.error)
             }
         }).catch(error =>{
-            message.error("another customer already registered that email")
+            message.error("Sorry, another customer has already registered with this email!")
         })
     }
     console.log(props)
@@ -44,15 +43,15 @@ export default function CustomerProfile(props) {
                     path = {"/"}/>
             <div id="profile" >
                 <Form form={form} layout="vertical">
-                    <Form.Item label="Given Name">
+                    <Form.Item label="Your Given Name">
                         <Input placeholder="given name" defaultValue={givenName}
                             onChange={e => setGivenName(e.target.value)} />
                     </Form.Item>
-                    <Form.Item label="Family Name">
+                    <Form.Item label="Your Family Name">
                         <Input placeholder="family name" defaultValue={familyName}
                             onChange={e => setFamilyName(e.target.value)} />
                     </Form.Item>
-                    <Form.Item label="Email">
+                    <Form.Item label="Your Email">
                         <Input placeholder="email" defaultValue={email}
                             onChange={e => setEmail(e.target.value)} />
                     </Form.Item>
@@ -61,7 +60,7 @@ export default function CustomerProfile(props) {
                             here
                         </Link> to change password
                     </Divider>
-                    <Form.Item label="Password">
+                    <Form.Item label="Your Password">
                         <Input placeholder="password" 
                             type = "password"
                             defaultValue={props.location.state.customer.password}

@@ -1,7 +1,7 @@
 import React from 'react';
-import {Button,Navbar, Nav,Modal,Form,DropdownButton,ButtonGroup,Dropdown,OverlayTrigger,Tooltip, Container} from 'react-bootstrap';
+import {Button,Navbar, Nav,Modal,Form,DropdownButton,ButtonGroup,Dropdown,Tooltip} from 'react-bootstrap';
 import {useState, useEffect  } from 'react';
-import {Divider, Drawer,message,Card,InputNumber,Typography} from 'antd';
+import {Divider, Drawer,message} from 'antd';
 import OrderList from '../components/OrderList.js';
 import axios from "../commons/axios"
 import {useHistory} from 'react-router-dom';
@@ -21,20 +21,13 @@ function Header(props) {
     const handleShow = () => setShow(true);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const[order, setOrder] = useState([]);
-    const [target, setTarget] = useState('');
     const [ordershow,setOrdershow] = useState([]);
     const [givenName,setGivenName] = useState('');
     const [familyName,setFamilyName] = useState('');
     const [registerShow,setRegisterShow] = useState(false);
-    const registerOpen  = () => setRegisterShow(true);
     const registerClose  = () => setRegisterShow(false);
+    const key = 'updatable';
 
-    const renderTooltip = (props) => (
-        <Tooltip id = 'button-tooltip' {...props}>
-          Click here to go homepage
-        </Tooltip>
-      );
 
     let history = useHistory();
     const goHomePage = () => {history.push('/',{
@@ -42,40 +35,56 @@ function Header(props) {
     })};
 
     const onLogin = () => {
+        message.loading({ content: 'Loging...', key });
+        setShow(false);
         axios.post("/customer/login", {email: email, password: password}).then(response => {
           if(response.data.success){
+              setTimeout(() => {message.success({ content: 'Login succsessfully', key, duration: 2 })},500);
               history.push(props.path, {
               customer : response.data.customer,
               vendors: props.vendors,
               position: props.center,
               vendor: props.vendor,
             });
-            message.success("Login succsess!")
-            setShow(false);
           }else{
-            message.error("we dont know this account")
+            setTimeout(() => {message.error({ content: "Sorry, we don't know this account!", key, duration: 2 })},1000);
           }
         }).catch(error =>{
           console.log(error)
-          message.error("Please enter your account")
-          setShow(false);
-          })
+          message.error({ content: "Please enter your account!", key, duration: 2 })
+          setTimeout(() => {setShow(true);},2000);
+        })
       }
 
     const onRegister = () => {
-        axios.post('/customer/register/', {
-            "givenName": givenName,
-            "familyName": familyName,
-            "email": email,
-            "password": password
-        }).then((response) => {
-            if (response.data.customer){
-                message.success("customer details registered succsess, please login with your account")
-                setRegisterShow(false);
-            }else{
-                message.error(response.data.message)
-            }
-        })
+        message.loading({ content: 'Registing...', key });
+        var emailFomat = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+        var passwordFomat = /^(?=.*[0-9])[a-zA-Z0-9]{8,16}$/;
+        setRegisterShow(false);
+        if(!emailFomat.test(email)){
+            message.error({ content: "Please enter correct email!", key, duration: 2 })
+            setTimeout(() => {setRegisterShow(true);},2000);
+        }else if(!passwordFomat.test(password)){
+            message.error({ content: "Please enter correct password!", key, duration: 2 })
+            setTimeout(() => {setRegisterShow(true);},2000);
+        }
+        else{
+            axios.post('/customer/register/', {
+                "givenName": givenName,
+                "familyName": familyName,
+                "email": email,
+                "password": password
+            }).then((response) => {
+                if (response.data.customer){
+                        message.success({ content: 'Your details has been registered succsessfully, please login with your account!!', key, duration: 2 });
+                }else{
+                    message.error(response.data.message)
+                }
+            }).catch(error =>{
+                message.error({ content: "Something wrong for your register", key, duration: 2 })
+                setTimeout(() => {setRegisterShow(true);},2000);
+            })
+        }
     }
 
     const openRegister = () =>{
@@ -89,7 +98,7 @@ function Header(props) {
             position: props.center,
             vendor: props.vendor,
         })
-        message.success("Your account has been successfully logout")
+        message.success("You has been successfully logout!!")
     }
 
     const onProfile = () => {
@@ -99,19 +108,23 @@ function Header(props) {
         })
     }
 
+    const openLogin = () =>{
+        setRegisterShow(false);
+        setShow(true);
+    }
+
 
     useEffect(() => {
         if(props.customer){         
             axios.get('/order?customer=' + props.customer.id).then(response => {
                 setOrders(response.data.allOrders)
             })
-            setTarget('customer');
             setTitle("Welcome to LE Sillage, "+ props.customer.givenName);
             setBottons([<Nav class="justify-content-end" >
                             <Button id="marginbtn"variant="outline-light"  key = "1" 
-                                onClick = {handleDrawerShow}>Order History</Button>
+                                onClick = {handleDrawerShow}>My Order History</Button>
                             <DropdownButton as={ButtonGroup} title="My Account" variant="outline-light" >
-                                <Dropdown.Item onClick={onProfile}>Profile</Dropdown.Item>
+                                <Dropdown.Item onClick={onProfile}>My Profile</Dropdown.Item>
                                 <Dropdown.Item onClick={onLogout} >Logout</Dropdown.Item>
                             </DropdownButton>
                         </Nav>]);
@@ -126,7 +139,7 @@ function Header(props) {
                         </Nav>])
 
         }
-    }, [props.customer,props.location,props.vendor]);
+    }, [props.customer,props.location,props.vendor,orders]);
     
     return(
             <Navbar collapseOnSelect id="nav" expand="md">
@@ -154,8 +167,8 @@ function Header(props) {
                 <Drawer visible ={drawerVisible}
                     closable = {true}
                     onClose = {handleDrawerClose}
-                    width={"30%"}>
-                    <h2>All Orders</h2><Divider/>
+                    width={"350"}>
+                    <h2>All Orders:</h2><Divider/>
                     {ordershow}
                 </Drawer>
 
@@ -167,14 +180,15 @@ function Header(props) {
                         <Form>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email"
+                            <Form.Control type="email" placeholder="Enter your email please"
                             onChange={e => setEmail(e.target.value)} />
                             <Form.Text className="text-muted">
+                                <p>We promise never share your details with others.</p>
                             </Form.Text>  
                         </Form.Group>
                         <Form.Group controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password"
+                            <Form.Control type="password" placeholder="Enter your assword please"
                             onChange={e => setPassword(e.target.value)} /> 
                         </Form.Group>
                         </Form>
@@ -197,32 +211,40 @@ function Header(props) {
                         <Form>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Given name</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email"
+                            <Form.Control type="email" placeholder="Enter your given name please"
                             onChange={e => setGivenName(e.target.value)} /> 
                         </Form.Group>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Family name</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email"
+                            <Form.Control type="email" placeholder="Enter your family name please"
                             onChange={e => setFamilyName(e.target.value)} />
                         </Form.Group>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email"
+                            <Form.Control type="email" placeholder="Enter your email please"
                             onChange={e => setEmail(e.target.value)} />
                             <Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
+                            <p>We'll never share your email with anyone else.</p>
                             </Form.Text>  
                         </Form.Group>
                         <Form.Group controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password"
+                            <Form.Control type="password" placeholder="Enter your assword please"
                             onChange={e => setPassword(e.target.value)} /> 
+                            <Form.Text className="text-muted">
+                                <p>The password must have at least 8 characters length</p>
+                                <p>The password must include at least 1 letter</p>
+                                <p>The password must include at least 1 number</p>
+                            </Form.Text> 
                         </Form.Group>
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
+                        <Button variant="link" onClick={openLogin}>
+                        I already have an account
+                        </Button>
                         <Button variant="outline-secondary" onClick={onRegister}>
-                        register
+                        Register
                         </Button>
                     </Modal.Footer>
                 </Modal> 

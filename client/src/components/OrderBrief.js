@@ -1,42 +1,39 @@
 import React from 'react'
-import { Modal, Button, Tooltip, OverlayTrigger } from 'react-bootstrap'; 
+import CountUp from './CountUp.js';
+import axios from '../commons/axios';
+
+import { Modal, Button } from 'react-bootstrap'; 
 import { Badge, Card, notification,Divider,InputNumber,message, Rate, Input } from 'antd';
 import { EyeOutlined, EditOutlined, CheckOutlined, CloseOutlined} from '@ant-design/icons';
 
-import CountUp from './CountUp.js';
-import axios from '../commons/axios';
-// import TextArea from 'antd/lib/input/TextArea';
-
-const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
-const {TextArea} = Input;
 const { Meta } = Card;
+const {TextArea} = Input;
 
-export default class   extends React.Component {
+// eslint-disable-next-line import/no-anonymous-default-export
+export default class extends React.Component {
 
     constructor(props){
         super();
         this.state = {
             menu: [],
             order:[],
-            modalVisible: false,
-            editModalVisibale: false,
-            modalBody: <> </>,
             diff: "",
             ratings: 0,
             comment: "",
+            modalVisible: false,
+            editModalVisibale: false,
+            modalBody: <> </>
         }
     }
 
     
+    handleShow = () => this.setState({modalVisible: true});
+    handleEditShow = () => this.setState({editModalVisible: true});
+    handleDeleteShow = () => this.setState({deleteModalVisible: true});
 
     handleClose = () => this.setState({modalVisible: false});
-    handleShow = () => this.setState({modalVisible: true});
-
     handleEditClose = () => this.setState({editModalVisible: false});
-    handleEditShow = () => this.setState({editModalVisible: true});
-    
     handleDeleteClose = () => this.setState({deleteModalVisible: false});
-    handleDeleteShow = () => this.setState({deleteModalVisible: true});
 
 
     onChange = (index, event) => {
@@ -47,38 +44,36 @@ export default class   extends React.Component {
     }
 
 
-    
     tick(){
         let now = new Date().getTime()
         let upd = Date.parse(this.props.order.updatedAt)
         this.setState({diff: ((now - upd) / 60000)})
     }
-
     componentDidMount(){
         axios.get('/snack').then(response => {
             this.setState({menu: response.data.snacks})
         })
-        this.timerID = setInterval(() => this.tick(), 1000); // updates this DOM every second
+        this.timerID = setInterval(() => this.tick(), 1000); 
     }
-
     componentWillUnmount(){
-        clearInterval(this.timerID); // tear down timer so that interval starts over
+        clearInterval(this.timerID); 
     }
     
     handleShowOrderDetail = () => {
         console.log(this.props.order)
     }
 
-    ratingsChange = (value) => {
+
+    changeRating = (value) => {
         console.log(value)
         this.setState({ratings: value});
     };
 
-    commentChange = (value) => {
+    changeComment = (value) => {
         this.setState({comment: value});
     }
 
-    handleEditOrder = () => {
+    orderEditCustomer = () => {
         console.log(this.state.diff)
         if(this.props.order.status ==="outstanding" && this.state.diff <= 10){
             this.setState({editModalVisible: true});
@@ -107,69 +102,23 @@ export default class   extends React.Component {
         }
     }
     
-
-
-    renderEditModalContent = ()=>{
-        if(this.props.order.status ==="outstanding"){
-            return(
-                <>
-                    <Modal.Header closeButton>
-                        <Modal.Title>{"OrderId:" + this.props.order._id}</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        {this.state.menu.map((snack, index) =>(
-                            <Card cover={<img alt="example" src={snack.image} />}style={{marginBottom:"2vh"}}size={"small"} key={snack._id}>
-                                <Meta
-                                    title={snack.name + "    " + snack.price}
-                                />
-                                <Divider style={{borderWidth:5, borderColor: '#593e34' }} plain>
-                                </Divider>
-                                <Meta
-                                    description={snack.detail}
-                                />
-                                <InputNumber key ={snack._id} min={0} defaultValue={0} style ={{marginLeft:"80%"}} onChange={e => this.onChange(index, e)} />
-                                    
-                            </Card>
-                        ))}
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="dark" onClick={() => this.onOrderSubmit()}>
-                            Submit
-                        </Button>
-                    </Modal.Footer>
-                </>
-            )
-        }else{
-            return(
-                <>
-                    <Modal.Header closeButton>
-                        <Modal.Title>{"OrderId:" + this.props.order._id}</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <p>Vendor:{this.props.order.vendor.name}</p>
-                        <p>Snacks:{this.props.order.snacks.map((snack)=> <li key={snack.name}>{snack.name} - qty: {snack.qty}</li>)}</p>
-                        <Divider>Rate your experience</Divider>
-                        <p>Ratings:</p><Rate onChange={(e) => this.ratingsChange(e)}/>
-                        <Divider></Divider>
-                        <p>Comment</p><TextArea rows={4} onChange={(e) => this.commentChange(e.target.value)}/>
-                        {/* {this.state.ratings ? <span className="ant-rate-text">{desc[this.state.ratings - 1]}</span> : ''} */}
-
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="dark" onClick={() => this.onCommentSubmit()}>
-                            Submit
-                        </Button>
-                    </Modal.Footer>
-                </>
-
-            )
-        }
+    submitComment = () => {
+        axios.post('/order/'+this.props.order._id+'/update',{
+            // customer:this.props.order.customer._id,
+            // vendor: this.props.order.vendor._id, //will be changed in the future
+            comment: this.state.comment,
+            rating: this.state.ratings
+        }).then(response =>{
+            if(response.data.success){
+                message.success("Order has been commented!")
+                this.setState({editModalVisible: false});
+            }else{
+                message.error("Order commenting errored!")
+            }
+        })
     }
 
-    // handleDeleteClose = () => this.setState({deleteModalVisible: false});
-    // handleDeleteShow = () => this.setState({deleteModalVisible: true});
-
-    handleDeleteOrder = () => {
+    orderCancelCustomer = () => {
         console.log(this.state.diff)
         var statusToBeUpdated = ''
         if(this.props.order.status ==="outstanding" && this.state.diff <= 10){
@@ -195,27 +144,7 @@ export default class   extends React.Component {
         }
     }
 
-
-    renderActions = () => {
-        if(window.location.pathname === "/orders"){
-            return(
-            [
-                    <EyeOutlined onClick = {()=> this.handleShow()} />,
-                    <CheckOutlined onClick = {()=> this.onOrderMark()} />
-            ]
-            )
-        }else {
-            return (
-                [
-                    <EyeOutlined onClick = {() => this.handleShow()} />, 
-                    <EditOutlined onClick = {() => this.handleEditOrder()}/>,
-                    <CloseOutlined onClick = {() => this.handleDeleteOrder()}/>
-                ]
-            )
-        }
-    }
-
-    onOrderMark =() =>{
+    orderStatusVendor =() =>{
         var statusToBeUpdated, discount
         var total = this.props.order.total
         if(this.props.order.status === "outstanding"){
@@ -259,11 +188,28 @@ export default class   extends React.Component {
         }
     }
 
-    onOrderSubmit = () => {
+    actionsDiff = () => {
+        if(window.location.pathname === "/orders"){
+            return(
+            [
+                    <EyeOutlined onClick = {()=> this.handleShow()} />,
+                    <CheckOutlined onClick = {()=> this.orderStatusVendor()} />
+            ]
+            )
+        }else {
+            return (
+                [
+                    <EyeOutlined onClick = {() => this.handleShow()} />, 
+                    <EditOutlined onClick = {() => this.orderEditCustomer()}/>,
+                    <CloseOutlined onClick = {() => this.orderCancelCustomer()}/>
+                ]
+            )
+        }
+    }
+
+    submitOrder = () => {
             var submitOrder = []
             var total = 0
-
-
             for (var i = 0; i < this.state.order.length; i++){
 
                 let update = total + this.state.menu[i].price * this.state.order[i]
@@ -284,11 +230,9 @@ export default class   extends React.Component {
                     this.setState({editModalVisible: false});
                 }
             })
-
             if (submitOrder.length ===0){
                 this.setState({editModalVisible: false});
                 message.error("You need to enter more than one snack!")
-
             }else{
                 axios.post('/order/'+this.props.order._id+'/update',{
                     // customer:this.props.order.customer._id,
@@ -307,21 +251,58 @@ export default class   extends React.Component {
             
     }
 
-    // 可以加判断是否可以二次更改comment
-    onCommentSubmit = () => {
-        axios.post('/order/'+this.props.order._id+'/update',{
-            // customer:this.props.order.customer._id,
-            // vendor: this.props.order.vendor._id, //will be changed in the future
-            comment: this.state.comment,
-            rating: this.state.ratings
-        }).then(response =>{
-            if(response.data.success){
-                message.success("Order has been commented!")
-                this.setState({editModalVisible: false});
-            }else{
-                message.error("Order commenting errored!")
-            }
-        })
+    editMenuContent = ()=>{
+        if(this.props.order.status ==="outstanding"){
+            return(
+                <>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{"OrderId:" + this.props.order._id}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        {this.state.menu.map((snack, index) =>(
+                            <Card style={{marginBottom:"2vh"}}size={"small"} key={snack._id}>
+                                <Meta
+                                    title={snack.name + "    $" + snack.price}
+                                />
+                                <Divider style={{borderWidth:5, borderColor: '#593e34' }} plain>
+                                </Divider>
+                                <InputNumber key ={snack._id} min={0} defaultValue={0} style ={{marginLeft:"80%"}} onChange={e => this.onChange(index, e)} />
+                                    
+                            </Card>
+                        ))}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="dark" onClick={() => this.submitOrder()}>
+                            Submit
+                        </Button>
+                    </Modal.Footer>
+                </>
+            )
+        }else{
+            return(
+                <>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{"OrderId:" + this.props.order._id}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>Vendor:{this.props.order.vendor.name}</p>
+                        <p>Snacks:{this.props.order.snacks.map((snack)=> <li key={snack.name}>{snack.name} - qty: {snack.qty}</li>)}</p>
+                        <Divider>Rate your experience</Divider>
+                        <p>Ratings:</p><Rate onChange={(e) => this.changeRating(e)}/>
+                        <Divider></Divider>
+                        <p>Comment</p><TextArea rows={4} onChange={(e) => this.changeComment(e.target.value)}/>
+                        {/* {this.state.ratings ? <span className="ant-rate-text">{desc[this.state.ratings - 1]}</span> : ''} */}
+
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="dark" onClick={() => this.submitComment()}>
+                            Submit
+                        </Button>
+                    </Modal.Footer>
+                </>
+
+            )
+        }
     }
 
     render() {
@@ -343,13 +324,13 @@ export default class   extends React.Component {
 
                 <Modal show = {this.state.editModalVisible} onHide={()=> this.handleEditClose()}>
 
-                    {this.renderEditModalContent()}
+                    {this.editMenuContent()}
 
                 </Modal>
                 {this.props.order.discount ? 
                     <Badge.Ribbon text = "order has been discount">
                         <Card style = {{margin: "10px"}}
-                            actions = {this.renderActions()}>
+                            actions = {this.actionsDiff()}>
                             <Meta title = {this.props.order.vendor.name + ' - ' + this.props.order.status} />
                             {(this.props.order.status === "fulfilled") ? "Order is fulfilled"
                                 :(this.props.order.status === "completed") ? "Order is completed"
@@ -358,7 +339,7 @@ export default class   extends React.Component {
                 </Badge.Ribbon> 
                 :
                 <Card style={{margin: "10px"}} 
-                actions={this.renderActions()}>
+                actions={this.actionsDiff()}>
                     <Meta  title={this.props.order.vendor._id + " - " + this.props.order.status}/>
                     {(this.props.order.status === "fulfilled") ? "Order is fulfilled"
                         : (this.props.order.status === "completed") ? "Order is completed"

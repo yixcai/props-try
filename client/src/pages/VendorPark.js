@@ -9,7 +9,7 @@ export default function VendorPark(props) {
             <Header id  = {props.location.state.vendor.id} vendor = {props.location.state.vendor}/>
             <LeafletMap center = {props.location.state.position}
                         vendor = {props.location.state.vendor}
-                        vendors = {[]}//如果传进来，可以获得最近的小车车
+                        vendors = {[]}
                         />
         </div>
     )

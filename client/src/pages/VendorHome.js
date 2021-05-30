@@ -1,41 +1,23 @@
-import {useState, useEffect} from 'react';
-import {Jumbotron, Button, OverlayTrigger,Tooltip, Modal, Form} from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from "../commons/axios"
-// import { response } from 'express';
-import { message, Typography } from 'antd';
 import 'antd/dist/antd.css'
-import e from 'cors';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {useState, useEffect} from 'react';
+import {Jumbotron, Button,Form} from 'react-bootstrap';
+import { message } from 'antd';
 
-const{Link}=Typography;
+import axios from "../commons/axios"
+
 
 function App2(props) {
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = (e) => {
-    if (e.target.outerText === "Customer"){
-      setModal('customer')
-    }else{
-      setModal('vendor')
-    }
-    setShow(true)
-  };
 
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userName, setName] = useState('');
 
   const[lat,setLat] = useState('');
   const[lng,setLng] = useState('');
   const[vendors,setVendors] = useState([]);
-  const[modal,setModal] = useState([]);
-
-  // const renderTooltip = (props) => (
-  //   <Tooltip id = 'button-tooltip' {...props}>
-  //     feature still in progess
-  //   </Tooltip>
-  // );
 
   useEffect(() =>{
     navigator.geolocation.getCurrentPosition(function (position){
@@ -51,7 +33,6 @@ function App2(props) {
     console.log({userName: userName, password: password})
     axios.post("/vendor/login", {userName: userName, password: password}).then(response => {
       if(response.data.success){
-        //传递本页信息到下一页
         message.success("Logged in successfully!!")
         props.history.push('/vendor', {
           vendor : response.data.vendor, 
@@ -66,14 +47,6 @@ function App2(props) {
       console.log(error.response.data.error)
       message.error(error.response.data.error)
       })
-  }
-
-
-  const onCustomerRegister = () =>{
-    props.history.push('/register',{
-      position:[lat, lng],
-      vendors: vendors
-    });
   }
 
   const onGoback = () =>{

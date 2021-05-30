@@ -1,24 +1,18 @@
-import {useState, useEffect} from 'react';
-import { Navbar, Nav,  Modal} from 'react-bootstrap';
-import {Divider,Button, Drawer, Row, Col, Card, InputNumber} from 'antd';
+import axios from "../commons/axios"
+import Header from '../components/header';
+
+import {useState} from 'react';
+import { Navbar, Nav, Modal} from 'react-bootstrap';
+import {Divider,Button, Row, Col, Card, InputNumber} from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
+import Layout, { Footer } from 'antd/lib/layout/layout';
+import { message } from 'antd'; 
+import {useHistory} from 'react-router-dom';
 import 'antd/dist/antd.css';
 import '../pages/main.css';
 
-import axios from "../commons/axios"
-import Layout, { Footer } from 'antd/lib/layout/layout';
-import OrderList from '../components/OrderList.js';
-import { message } from 'antd'; 
-import {useHistory} from 'react-router-dom';
-import Header from '../components/header';
-
-
 
 const{Meta}= Card;
-function onChange(value) {
-    console.log('changed', value);
-  }
-
 
 export default function CustomerMain(props) {
 
@@ -69,6 +63,7 @@ export default function CustomerMain(props) {
             setModalVisible(false)
             message.error("Sorry, you cannot enter empty snacks~")
         }else{
+            message.loading({ content: 'Processing...'});
             // post the order info 
             axios.post('/order/create',{
                 customer: props.location.state.customer.id,
@@ -77,10 +72,11 @@ export default function CustomerMain(props) {
                 total : total
             }).then(response =>{
                 if(response.data.success){
-                    message.success("Congrats! Your order is received and you can pick up later!")
+                    setTimeout(() => {message.success({ content: "Congrats! Your order is received and you can pick up later!", duration: 2 })},500);
                     setModalVisible(false)
+                    setOrder([])
                 }else{
-                    message.error("Sorry, your order is failed to record! Please try again later!")
+                    setTimeout(() => {message.error({ content: "Sorry, your order is failed to record! Please try again later!",duration: 2 })},500);
                 }
             })
         }
@@ -117,12 +113,12 @@ export default function CustomerMain(props) {
                                 {snacks.map((snack, index) =>(
                                     <Card style={{marginBottom:"2vh"}}size={"small"} key={snack._id}>
                                         <Meta
-                                            title={snack.name + "    " + snack.price}
+                                            title={snack.name + "  $" + snack.price}
                                         />
                                         <Divider style={{borderWidth:5, borderColor: '#593e34' }} plain>
                                         </Divider>
                                         <Meta/>
-                                        <InputNumber key ={snack._id} min={0} defaultValue={0} style ={{marginLeft:"80%"}} onChange={e => onChange(index, e)} />
+                                        <InputNumber key ={snack._id} min={0} defaultValue={order[index]} style ={{marginLeft:"0%"}} onChange={e => onChange(index, e)} />
                                             
                                     </Card>
                                 ))}
@@ -140,14 +136,15 @@ export default function CustomerMain(props) {
                 <div id="menu-container">
                     <Row id="Coffee-Row">
                         <Divider orientation="left" style={{borderWidth:2, borderColor: '#593e34' }} plain>
-                            <h2>Snacks - Le Sillage</h2>
+                            <h2>All Products - Le Sillage</h2>
                         </Divider>
                     {snacks.map((snack, index) =>(
-                        <Col span={8}>
+                        <Col xs={12} sm={4} md={6} lg={6}>
                         <Card id="coffeemenu" hoverable
                                 cover={<img alt="" src={snack.image} ></img>}
                             >
                                 <Meta title={snack.name + "    " + snack.price}/>
+                                <Meta description={snack.detail} />
                             </Card>
                         </Col>
                     ))}

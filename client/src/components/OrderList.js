@@ -1,10 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import axios from "../commons/axios";
+import React, {useState, useEffect, Component} from 'react';
+import { Container } from 'react-bootstrap';
+import{Empty, message} from 'antd';
+
 import URLs from "../url";
 import io from "socket.io-client";
-import{Empty, message,Card} from 'antd';
-import { Component } from 'react'
-import OrderBrief from './OrderBrief.js';
+
+import OrderEachContent from './OrderBrief.js';
+import axios from "../commons/axios";
 
 
 function Orders(props){
@@ -34,11 +36,11 @@ function Orders(props){
 
     const renderOrders = orders.map((order)=>{
         return(
-            <Card>
-                <OrderBrief
+            <Container>
+                <OrderEachContent
                     key = {order._id}
                     order = {order}/>
-            </Card>
+            </Container>
         )
     })
 
@@ -88,7 +90,6 @@ export default class OrderList extends Component {
     }
     
 
-
     render() {
         return (
             <div style= {{height: '100vh', width:'100%', margin:'auto', 'marginTop':'5%'}}>
@@ -97,21 +98,3 @@ export default class OrderList extends Component {
         )
     }
 }
-
-
-
-// export default function OrderList(props) {
-//     //for loop
-//     const renderOrders = props.orders.map((order, index) => {
-//         return (
-//             <OrderBrief
-//                 key={order._id}
-//                 order={order}/>
-//         )
-//     })
-//     return (
-//         <div>
-//             {renderOrders}
-//         </div>
-//     )
-// }

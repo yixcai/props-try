@@ -1,23 +1,18 @@
-import {useState, useEffect  } from 'react';
-import {Jumbotron, Button, OverlayTrigger,Tooltip, Modal, Form,Navbar, Nav} from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.css';
-import axios from '../commons/axios.js';
-import { message, Typography ,Layout, Menu, } from 'antd';
 import './main.css';
+import axios from '../commons/axios.js';
+
+import 'bootstrap/dist/css/bootstrap.css';
+import {useState, useEffect  } from 'react';
+import {Jumbotron, Button} from 'react-bootstrap';
 
 function App(props) { 
-    const [customer, setCustomer] = useState();
     
     const[lat,setLat] = useState('');
     const[lng,setLng] = useState('');
     const[vendors,setVendors] = useState([]);
     
     useEffect(() =>{
-      if(props.location.state){
-        setCustomer(props.location.state.customer)
-      }else{
-        setCustomer(null)
-      }
+
       navigator.geolocation.getCurrentPosition(function (position){
         setLat(position.coords.latitude)
         setLng(position.coords.longitude)
